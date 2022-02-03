@@ -5,18 +5,15 @@ package com.example.insuranceprototype.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
 @Entity
-public class PersonalDetails implements Serializable {
+public class PersonalDetails  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
