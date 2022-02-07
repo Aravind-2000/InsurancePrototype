@@ -1,7 +1,7 @@
 package com.example.insuranceprototype.Entity;
 
 public enum ModeOfCommunication {
-    SMS,
+    MOBILE,
     EMAIL,
     WHATSAPP
 }

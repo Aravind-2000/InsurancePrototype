@@ -35,4 +35,8 @@ public class PersonalDetails  {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime availableDateAndTime;
 
+    private Long employee;
+
+    @Enumerated(EnumType.STRING)
+    private Status currentStatus;
 }

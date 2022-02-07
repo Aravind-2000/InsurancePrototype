@@ -1,6 +1,7 @@
 package com.example.insuranceprototype.Service;
 
 import com.example.insuranceprototype.Entity.PersonalDetails;
+import com.example.insuranceprototype.Entity.Status;
 import com.example.insuranceprototype.Repository.DetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class DetailsService {
     }
 
     public String saveDetails(PersonalDetails details){
+        details.setCurrentStatus(Status.CAPTURED);
         detailsRepo.save(details);
         return "Candidate ID " + details.getId() + " details saved successfully";
     }
@@ -62,6 +64,10 @@ public class DetailsService {
         }
         if(details.getAvailableDateAndTime() != null){
             pd.setAvailableDateAndTime((details.getAvailableDateAndTime()));
+        }
+        if(details.getEmployee() != null){
+            pd.setEmployee(details.getEmployee());
+            pd.setCurrentStatus(Status.ASSIGNED);
         }
         detailsRepo.save(pd);
         return "Candidate ID " + id + " updated successfully";
