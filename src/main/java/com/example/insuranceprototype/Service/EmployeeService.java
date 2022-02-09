@@ -38,6 +38,9 @@ public class EmployeeService {
         if(employee.getEmployeeName() != null){
             emp.setEmployeeName(employee.getEmployeeName());
         }
+        if(employee.getEmployeeEmail() != null){
+            emp.setEmployeeEmail(employee.getEmployeeEmail());
+        }
         if(employee.getEmployeeDesignation() != null){
             emp.setEmployeeDesignation(employee.getEmployeeDesignation());
         }

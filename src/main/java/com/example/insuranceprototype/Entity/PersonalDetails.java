@@ -20,23 +20,21 @@ public class PersonalDetails  {
     private String mobileNumber;
     private String email;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate dateOfBirth;
     private String highestQualification;
 
-    @Enumerated(EnumType.STRING)
-    private Proof proof;
+
+    private String proof;
 
     private String proofId;
 
-    @Enumerated(EnumType.STRING)
-    private ModeOfCommunication communication;
+    private String communication;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern = "MM-dd-yyyy HH:mm")
     private LocalDateTime availableDateAndTime;
 
     private Long employee;
 
-    @Enumerated(EnumType.STRING)
-    private Status currentStatus;
+    private String currentStatus;
 }

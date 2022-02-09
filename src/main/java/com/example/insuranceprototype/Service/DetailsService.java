@@ -20,7 +20,7 @@ public class DetailsService {
     }
 
     public String saveDetails(PersonalDetails details){
-        details.setCurrentStatus(Status.CAPTURED);
+        details.setCurrentStatus("Captured");
         detailsRepo.save(details);
         return "Candidate ID " + details.getId() + " details saved successfully";
     }
@@ -67,7 +67,7 @@ public class DetailsService {
         }
         if(details.getEmployee() != null){
             pd.setEmployee(details.getEmployee());
-            pd.setCurrentStatus(Status.ASSIGNED);
+            pd.setCurrentStatus("Assigned");
         }
         detailsRepo.save(pd);
         return "Candidate ID " + id + " updated successfully";

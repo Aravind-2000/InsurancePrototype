@@ -20,6 +20,8 @@ public class Employee {
 
     private String employeeName;
 
+    private String employeeEmail;
+
     private String employeeDesignation;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "employee")
