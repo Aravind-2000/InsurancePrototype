@@ -37,4 +37,9 @@ public class PersonalDetails  {
     private Long employee;
 
     private String currentStatus;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    private Quantitative quants;
 }

@@ -65,6 +65,9 @@ public class DetailsService {
         if(details.getAvailableDateAndTime() != null){
             pd.setAvailableDateAndTime((details.getAvailableDateAndTime()));
         }
+        if(details.getQuants() != null){
+            pd.setQuants(details.getQuants());
+        }
         if(details.getEmployee() != null){
             pd.setEmployee(details.getEmployee());
             pd.setCurrentStatus("Assigned");
