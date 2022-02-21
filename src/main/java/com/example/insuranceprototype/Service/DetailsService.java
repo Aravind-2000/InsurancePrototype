@@ -1,5 +1,6 @@
 package com.example.insuranceprototype.Service;
 
+import com.example.insuranceprototype.Email.EmailService;
 import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Entity.Status;
 import com.example.insuranceprototype.Repository.DetailsRepository;
@@ -15,6 +16,9 @@ public class DetailsService {
     @Autowired
     private DetailsRepository detailsRepo;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<PersonalDetails> getAllDetails(){
         return detailsRepo.findAll();
     }
@@ -22,6 +26,9 @@ public class DetailsService {
     public String saveDetails(PersonalDetails details){
         details.setCurrentStatus("Captured");
         detailsRepo.save(details);
+        String body = "Hi " + details.getName() +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
+        String sub = "Confirmation Email";
+        emailService.sendMail(details.getEmail(), sub, body);
         return "Candidate ID " + details.getId() + " details saved successfully";
     }
 

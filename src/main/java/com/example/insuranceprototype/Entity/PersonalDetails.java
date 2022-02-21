@@ -24,7 +24,6 @@ public class PersonalDetails  {
     private LocalDate dateOfBirth;
     private String highestQualification;
 
-
     private String proof;
 
     private String proofId;
