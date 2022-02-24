@@ -1,14 +1,21 @@
 package com.example.insuranceprototype.Service;
 
 import com.example.insuranceprototype.Email.EmailService;
+import com.example.insuranceprototype.Entity.Employee;
 import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Entity.Status;
 import com.example.insuranceprototype.Repository.DetailsRepository;
+import com.example.insuranceprototype.Repository.EmployeeRepository;
+import com.example.insuranceprototype.pdf.PdfService;
+import com.itextpdf.layout.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class DetailsService {
@@ -17,18 +24,25 @@ public class DetailsService {
     private DetailsRepository detailsRepo;
 
     @Autowired
+    private EmployeeRepository empRepo;
+
+    @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PdfService pdfService;
 
     public List<PersonalDetails> getAllDetails(){
         return detailsRepo.findAll();
     }
 
-    public String saveDetails(PersonalDetails details){
+    public String saveDetails(PersonalDetails details) throws FileNotFoundException {
         details.setCurrentStatus("Captured");
         detailsRepo.save(details);
+        String path = pdfService.pdfConfirmation(details.getId());
         String body = "Hi " + details.getName() +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
         String sub = "Confirmation Email";
-        emailService.sendMail(details.getEmail(), sub, body);
+        emailService.sendMail(details.getEmail(), sub, body,path);
         return "Candidate ID " + details.getId() + " details saved successfully";
     }
 
@@ -41,7 +55,7 @@ public class DetailsService {
         return "Candidate ID " + id + " details deleted successfully";
     }
 
-    public String updateDetails(Long id , PersonalDetails details){
+    public String updateDetails(Long id , PersonalDetails details) {
 
         PersonalDetails pd = detailsRepo.getById(id);
 
@@ -78,6 +92,13 @@ public class DetailsService {
         if(details.getEmployee() != null){
             pd.setEmployee(details.getEmployee());
             pd.setCurrentStatus("Assigned");
+            String b1 = " Hi " + pd.getName() +  " This mail is  regarding about your Interview. \n your Interview is assigned on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))+ "  \n Thank You.";
+            String s1 = "Interview Call Letter";
+            emailService.sendEmail(pd.getEmail(), s1, b1);
+            Employee emp = empRepo.getById(details.getEmployee());
+            String b2 = " Hi " + emp.getEmployeeName() +  "\n A Candidate's interview has been assigned to you on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm ")) + " \n Thank you";
+            String s2 = " Interview Assigned Notification ";
+            emailService.sendEmail(emp.getEmployeeEmail(), s2, b2);
         }
         detailsRepo.save(pd);
         return "Candidate ID " + id + " updated successfully";

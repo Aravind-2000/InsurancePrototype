@@ -6,6 +6,7 @@ import com.example.insuranceprototype.Service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class DetailsController {
     }
 
     @PostMapping("/savedetails")
-    public String savedetails(@RequestBody PersonalDetails details){
+    public String savedetails(@RequestBody PersonalDetails details) throws FileNotFoundException {
         return detailsService.saveDetails(details);
     }
 
