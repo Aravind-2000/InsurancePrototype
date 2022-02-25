@@ -30,7 +30,7 @@ public class EmailService {
 
     public void sendEmail(String to, String subject,String body) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("lakshmi.nv@futurainstech.com");
+        mailMessage.setFrom("varavind2000@gmail.com");
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);
         mailMessage.setText(body);
@@ -42,7 +42,7 @@ public class EmailService {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                mimeMessage.setFrom(new InternetAddress("lakshmi.nv@futurainstech.com"));
+                mimeMessage.setFrom(new InternetAddress("varavind2000@gmail.com"));
                 mimeMessage.setSubject(subject);
                 Multipart multipart = new MimeMultipart();
                 MimeBodyPart attachment = new MimeBodyPart();

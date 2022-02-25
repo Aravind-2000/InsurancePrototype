@@ -34,7 +34,7 @@ public class DetailsController {
     }
 
     @PatchMapping("/update/{id}")
-    public String updatedetails(@PathVariable Long id , @RequestBody PersonalDetails details){
+    public String updatedetails(@PathVariable Long id , @RequestBody PersonalDetails details) throws FileNotFoundException {
         return detailsService.updateDetails(id, details);
     }
 
