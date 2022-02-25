@@ -1,7 +1,9 @@
 package com.example.insuranceprototype.Service;
 
 
+import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Entity.Quantitative;
+import com.example.insuranceprototype.Repository.DetailsRepository;
 import com.example.insuranceprototype.Repository.QuantitativeRepositroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class QuantitativeService {
     @Autowired
     private QuantitativeRepositroy quantitativeRepo;
 
+    @Autowired
+    private DetailsRepository detailsRepository;
+
 
     public List<Quantitative> getAllQuantitative(){
         return quantitativeRepo.findAll();
@@ -26,12 +31,18 @@ public class QuantitativeService {
 
     public String saveDetails(Quantitative quantitative) {
         quantitativeRepo.save(quantitative);
+        PersonalDetails pd = detailsRepository.getById(quantitative.getId());
+        if(quantitative.getResult().equals("Passed") || quantitative.getResult().equals("Failed")){
+            pd.setCurrentStatus("Interview Completed");
+        }
+        detailsRepository.save(pd);
         return " New Quantative Is Saved Successfully";
     }
 
     public Quantitative updateDetails(Long id, Quantitative quantitative){
 
         Quantitative qat = quantitativeRepo.getById(id);
+
 
         if(quantitative.getNumericalAbility() != 0L) {
             qat.setNumericalAbility(quantitative.getNumericalAbility());
@@ -72,7 +83,6 @@ public class QuantitativeService {
         if(quantitative.getResult() != null){
             qat.setResult(quantitative.getResult());
         }
-
         return quantitativeRepo.save(qat);
     }
 }

@@ -98,7 +98,6 @@
             <artifactId>font-asian</artifactId>
             <version>7.1.17</version>
         </dependency>
-
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>hyph</artifactId>
