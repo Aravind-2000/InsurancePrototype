@@ -42,4 +42,29 @@ public class DetailsController {
     public String deletedetails(@PathVariable Long id){
         return detailsService.deleteDetails(id);
     }
+
+    @GetMapping("/search/name/{name}")
+    public List<PersonalDetails> getName(@PathVariable String name){
+        return detailsService.getnamelike(name);
+    }
+
+    @GetMapping("/search/email/{val}")
+    public List<PersonalDetails> getEmail(@PathVariable String val){
+        return detailsService.getEmailLike(val);
+    }
+
+    @GetMapping("/search/proof/{val}")
+    public List<PersonalDetails> getproof(@PathVariable String val){
+        return detailsService.getProofLike(val);
+    }
+
+    @GetMapping("/search/candidatestatus/{val}")
+    public List<PersonalDetails> getCurrentStatus(@PathVariable String val){
+        return detailsService.getcurrentstatuslike(val);
+    }
+
+    @GetMapping("/search/{val}")
+    public List<PersonalDetails> serchall(@PathVariable String val){
+        return detailsService.searchAll(val);
+    }
 }

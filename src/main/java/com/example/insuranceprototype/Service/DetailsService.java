@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,8 @@ public class DetailsService {
 
     public String saveDetails(PersonalDetails details) throws FileNotFoundException {
         details.setCurrentStatus("Captured");
+        details.setCreatedTime(LocalDateTime.now());
+        details.setModifiedTime(LocalDateTime.now());
         detailsRepo.save(details);
         String path = pdfService.pdfConfirmation(details.getId());
         String body = " Hi " + details.getName() +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
@@ -101,7 +104,26 @@ public class DetailsService {
             String s2 = " Interview Assigned Notification ";
             emailService.sendEmail(emp.getEmployeeEmail(), s2, b2);
         }
+        pd.setModifiedTime(LocalDateTime.now());
         detailsRepo.save(pd);
         return "Candidate ID " + id + " updated successfully";
+    }
+
+    public List<PersonalDetails> getnamelike(String name){
+       return detailsRepo.getNameLike(name);
+    }
+    public List<PersonalDetails> getEmailLike(String email){
+        return detailsRepo.getEmailLike(email);
+    }
+    public List<PersonalDetails> getProofLike(String proof){
+        return detailsRepo.getProofLike(proof);
+    }
+
+    public List<PersonalDetails> getcurrentstatuslike(String val){
+        return detailsRepo.getCurrentStatusLike(val);
+    }
+
+    public List<PersonalDetails> searchAll(String val){
+        return detailsRepo.searchbyAll(val);
     }
 }
