@@ -2,6 +2,7 @@ package com.example.insuranceprototype.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -42,4 +43,12 @@ public class PersonalDetails  {
     @PrimaryKeyJoinColumn
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private Quantitative quants;
+
+    private String result;
+
+    @Timestamp
+    private LocalDateTime createdTime;
+
+    @Timestamp
+    private LocalDateTime modifiedTime;
 }

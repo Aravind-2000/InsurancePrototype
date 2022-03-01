@@ -6,6 +6,7 @@ import com.example.insuranceprototype.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public class EmployeeService {
     }
 
     public String addEmployee(Employee employee){
+        employee.setCreatedTime(LocalDateTime.now());
+        employee.setModifiedTime(LocalDateTime.now());
         empRepo.save(employee);
         return  "Employee" +  employee.getEmployeeName() + " added successfully";
     }
@@ -44,6 +47,7 @@ public class EmployeeService {
         if(employee.getEmployeeDesignation() != null){
             emp.setEmployeeDesignation(employee.getEmployeeDesignation());
         }
+        emp.setModifiedTime(LocalDateTime.now());
         empRepo.save(emp);
         return "EMployee" + employee.getEmployeeName() + "details updated successfully";
     }

@@ -1,10 +1,12 @@
 package com.example.insuranceprototype.Entity;
 
 
+import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -25,6 +27,11 @@ public class Quantitative {
     private String codingAndDecodingComments;
     private long overallRating;
     private String result;
+    @Timestamp
+    private LocalDateTime createdTime;
+
+    @Timestamp
+    private LocalDateTime modifiedTime;
 
 
 

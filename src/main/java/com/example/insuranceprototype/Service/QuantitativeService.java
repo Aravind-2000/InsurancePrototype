@@ -34,6 +34,7 @@ public class QuantitativeService {
         PersonalDetails pd = detailsRepository.getById(quantitative.getId());
         if(quantitative.getResult().equals("Passed") || quantitative.getResult().equals("Failed")){
             pd.setCurrentStatus("Interview Completed");
+            pd.setResult(quantitative.getResult());
         }
         detailsRepository.save(pd);
         return " New Quantative Is Saved Successfully";
