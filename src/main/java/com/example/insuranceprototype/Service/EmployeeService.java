@@ -47,9 +47,8 @@ public class EmployeeService {
         if(employee.getEmployeeDesignation() != null){
             emp.setEmployeeDesignation(employee.getEmployeeDesignation());
         }
-        emp.setModifiedTime(LocalDateTime.now());
         empRepo.save(emp);
-        return "EMployee" + employee.getEmployeeName() + "details updated successfully";
+        return "EMployee" + emp.getEmployeeName() + "details updated successfully";
     }
 
 }
