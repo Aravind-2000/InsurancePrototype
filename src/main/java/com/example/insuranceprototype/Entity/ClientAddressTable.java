@@ -29,7 +29,7 @@ public class ClientAddressTable {
     private String country;
     private String pincode;
     private String addressType;
-    private int isPresentAddress;
+    private Boolean isPresentAddress;
 
 
     private int validFlag;
