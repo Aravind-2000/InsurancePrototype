@@ -4,9 +4,12 @@ package com.example.insuranceprototype.Controller;
 import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +31,13 @@ public class DetailsController {
         return detailsService.getByCandidateId(id);
     }
 
-    @PostMapping("/savedetails")
-    public String savedetails(@RequestBody PersonalDetails details) throws FileNotFoundException {
+    @GetMapping("/application/{id}")
+    public PersonalDetails searchbyid(@PathVariable Long id){
+        return detailsService.searchbyId(id);
+    }
+
+    @PostMapping(value = "/savedetails")
+    public String savedetails(@RequestBody PersonalDetails details) throws IOException {
         return detailsService.saveDetails(details);
     }
 
@@ -66,5 +74,10 @@ public class DetailsController {
     @GetMapping("/search/{val}")
     public List<PersonalDetails> serchall(@PathVariable String val){
         return detailsService.searchAll(val);
+    }
+
+    @GetMapping("/passed/{val}")
+    PersonalDetails searchPassed(@PathVariable String val){
+        return detailsService.searchPassed(val);
     }
 }

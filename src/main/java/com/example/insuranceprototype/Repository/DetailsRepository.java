@@ -25,4 +25,13 @@ public interface DetailsRepository extends JpaRepository<PersonalDetails, Long> 
 
     @Query(value = "select * from personal_details where current_status like %:currentstatus%", nativeQuery = true)
     List<PersonalDetails> getCurrentStatusLike(String currentstatus);
+
+    @Query(value = "select * from personal_details where name = :candidateName and result = 'Passed' ", nativeQuery = true)
+    PersonalDetails searchByNameWhoAreAllPassed(String candidateName);
+
+    @Query(value = "select * from personal_details where name = :candidateName and result = 'Failed' ", nativeQuery = true)
+    PersonalDetails searchByNameWhoAreAllFailed(String candidateName);
+
+    @Query(value = " select * from personal_details where id = :applicationid", nativeQuery = true)
+    PersonalDetails searchById(Long applicationid);
 }
