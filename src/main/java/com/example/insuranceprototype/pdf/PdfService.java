@@ -37,6 +37,7 @@ public class PdfService {
             document.add(new Paragraph("Address: 1st Main Rd	Judge Colony, Tambaram, Chennai, Tamil Nadu 600064").setFontSize(8).setBold());
             document.add(new Paragraph(" "));
             document.add(new Paragraph("Candidate Details:-"));
+            document.add(new Paragraph(" ID : " + det.getId()));
             document.add(new Paragraph(" Name : " + det.getName()));
             document.add(new Paragraph(" Date of Birth : " + det.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
             document.add(new Paragraph(" E-Mail : " + det.getEmail()));
