@@ -2,7 +2,6 @@ package com.example.insuranceprototype.Entity;
 
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -13,6 +12,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import com.example.insuranceprototype.Proofs.Proof;
 
 @Entity
 @Getter
@@ -44,12 +46,11 @@ public class ClientMaintainPersonal {
     private String nameFormat;
     private Boolean companyDoctor;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate birthDate;
     private String birthPlace;
     private String language;
     private String category;
-    private String documentNumber;
     private String occupation;
 
 
@@ -62,6 +63,9 @@ public class ClientMaintainPersonal {
 
 
     private int validFlag;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientID")
+    private List<Proof> proofList = new ArrayList<>();
 
     @CreationTimestamp
     private LocalDateTime createdDate;
