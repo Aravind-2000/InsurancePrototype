@@ -5,8 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -46,9 +50,12 @@ public class PersonalDetails  {
 
     private String result;
 
-    @Timestamp
+    @Lob
+    private byte[] resume;
+
+    @CreationTimestamp
     private LocalDateTime createdTime;
 
-    @Timestamp
+    @UpdateTimestamp
     private LocalDateTime modifiedTime;
 }
