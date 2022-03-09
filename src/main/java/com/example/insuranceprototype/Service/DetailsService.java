@@ -4,14 +4,18 @@ import com.example.insuranceprototype.Email.EmailService;
 import com.example.insuranceprototype.Entity.Employee;
 import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Entity.Status;
+import com.example.insuranceprototype.Notification.NotificationService;
 import com.example.insuranceprototype.Repository.DetailsRepository;
 import com.example.insuranceprototype.Repository.EmployeeRepository;
 import com.example.insuranceprototype.pdf.PdfService;
 import com.itextpdf.layout.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -33,14 +37,15 @@ public class DetailsService {
     @Autowired
     private PdfService pdfService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<PersonalDetails> getAllDetails(){
         return detailsRepo.findAll();
     }
 
-    public String saveDetails(PersonalDetails details) throws FileNotFoundException {
+    public String saveDetails(PersonalDetails details) throws IOException {
         details.setCurrentStatus("Captured");
-        details.setCreatedTime(LocalDateTime.now());
-        details.setModifiedTime(LocalDateTime.now());
         detailsRepo.save(details);
         String path = pdfService.pdfConfirmation(details.getId());
         String body = " Hi " + details.getName() +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
@@ -51,6 +56,10 @@ public class DetailsService {
 
     public Optional<PersonalDetails> getByCandidateId(Long id){
         return detailsRepo.findById(id);
+    }
+
+    public PersonalDetails searchbyId(Long id){
+        return detailsRepo.searchById(id);
     }
 
     public String deleteDetails(Long id ){
@@ -103,6 +112,12 @@ public class DetailsService {
             String b2 = " Hi " + emp.getEmployeeName() +  "\n A Candidate's interview has been assigned to you on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm ")) + " \n Thank you";
             String s2 = " Interview Assigned Notification ";
             emailService.sendEmail(emp.getEmployeeEmail(), s2, b2);
+            notificationService
+                    .addNotification(
+                            "INTERVIEW",
+                            "High",
+                            "You have a new interview on " +pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))+ " ",
+                            emp.getId(), pd.getId());
         }
         pd.setModifiedTime(LocalDateTime.now());
         detailsRepo.save(pd);
@@ -126,4 +141,6 @@ public class DetailsService {
     public List<PersonalDetails> searchAll(String val){
         return detailsRepo.searchbyAll(val);
     }
+
+    public PersonalDetails searchPassed(String name){return detailsRepo.searchByNameWhoAreAllPassed(name);}
 }

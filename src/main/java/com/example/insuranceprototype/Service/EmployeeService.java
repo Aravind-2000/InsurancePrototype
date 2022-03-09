@@ -26,8 +26,6 @@ public class EmployeeService {
     }
 
     public String addEmployee(Employee employee){
-        employee.setCreatedTime(LocalDateTime.now());
-        employee.setModifiedTime(LocalDateTime.now());
         empRepo.save(employee);
         return  "Employee" +  employee.getEmployeeName() + " added successfully";
     }
