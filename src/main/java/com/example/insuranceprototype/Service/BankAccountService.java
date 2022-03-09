@@ -33,6 +33,10 @@ public class BankAccountService {
         return errorService.getErrorById("ER001");
     }
 
+    public List<BankAccount> search(String key){
+        return bankRepo.globalSearch(key);
+    }
+
     public String updatebankacc(Long id , BankAccount account){
 
         BankAccount acc = bankRepo.getById(id);
@@ -65,6 +69,13 @@ public class BankAccountService {
             acc.setIsActive(1);
         }
 
+        bankRepo.save(acc);
+        return errorService.getErrorById("ER003");
+    }
+
+    public String tempDeleteBank(Long id){
+        BankAccount acc = bankRepo.getById(id);
+        acc.setIsActive(-1);
         bankRepo.save(acc);
         return errorService.getErrorById("ER003");
     }

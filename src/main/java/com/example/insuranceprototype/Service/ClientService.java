@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -31,6 +30,10 @@ public class ClientService {
         clientMaintainPersonal.setValidFlag(1);
         clientRepo.save(clientMaintainPersonal);
         return errorService.getErrorById("ER001");
+    }
+
+    public List<ClientMaintainPersonal> search(String key){
+        return clientRepo.globalSearch(key);
     }
 
     public String updateClient(Long id , ClientMaintainPersonal clientDetails){
@@ -74,20 +77,20 @@ public class ClientService {
         if(clientDetails.getNameFormat() != null){
             cmp.setNameFormat(clientDetails.getNameFormat());
         }
-        if(clientDetails.getCompanyDoctor() != null){
-            cmp.setCompanyDoctor(clientDetails.getCompanyDoctor());
+        if(!clientDetails.getCompanyDoctor()){
+            cmp.setCompanyDoctor(true);
+        }
+        if(clientDetails.getCompanyDoctor()){
+            cmp.setCompanyDoctor(false);
         }
         if(clientDetails.getBirthDate() != null){
             cmp.setBirthDate(clientDetails.getBirthDate());
         }
         if(clientDetails.getBirthPlace() != null){
-            cmp.setNameFormat(clientDetails.getNameFormat());
+            cmp.setBirthPlace(clientDetails.getBirthPlace());
         }
         if(clientDetails.getLanguage() != null){
             cmp.setLanguage(clientDetails.getLanguage());
-        }
-        if(clientDetails.getDocumentNumber() != null){
-            cmp.setDocumentNumber(clientDetails.getDocumentNumber());
         }
         if(clientDetails.getOccupation() != null){
             cmp.setOccupation(clientDetails.getOccupation());
@@ -98,13 +101,18 @@ public class ClientService {
         if(clientDetails.getBankAccount() != null){
             cmp.setBankAccount(clientDetails.getBankAccount());
         }
-        if(clientDetails.getValidFlag() == -1){
-            cmp.setValidFlag(-1);
-        }
-        if(clientDetails.getValidFlag() == 1){
-            cmp.setValidFlag(1);
+        if(clientDetails.getProofList() != null){
+            cmp.setProofList(clientDetails.getProofList());
         }
         clientRepo.save(cmp);
         return errorService.getErrorById("ER003");
     }
+
+    public String deleteClient(Long id){
+        ClientMaintainPersonal client = clientRepo.getById(id);
+        client.setValidFlag(-1);
+        clientRepo.save(client);
+        return errorService.getErrorById("ER003");
+    }
+
 }

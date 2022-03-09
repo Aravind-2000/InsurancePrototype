@@ -28,6 +28,11 @@ public class ClientController {
         return clientService.getClient(id);
     }
 
+    @GetMapping("/search/{val}")
+    public List<ClientMaintainPersonal> searchClient(@PathVariable String val){
+        return clientService.search(val);
+    }
+
     @PostMapping("/add")
     public String addClient(@RequestBody ClientMaintainPersonal client){
         return clientService.addClient(client);
@@ -36,6 +41,11 @@ public class ClientController {
     @PatchMapping("/{id}")
     public String updateClient(@PathVariable Long id, @RequestBody ClientMaintainPersonal clientMaintainPersonal){
         return clientService.updateClient(id, clientMaintainPersonal);
+    }
+
+    @PatchMapping("/del/{id}")
+    public String updateClient(@PathVariable Long id){
+        return clientService.deleteClient(id);
     }
 
 }

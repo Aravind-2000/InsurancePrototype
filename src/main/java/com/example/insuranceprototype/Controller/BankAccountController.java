@@ -26,6 +26,11 @@ public class BankAccountController {
         return accService.getbankacc(id);
     }
 
+    @GetMapping("/search/{val}")
+    public List<BankAccount> search(@PathVariable String val){
+        return accService.search(val);
+    }
+
     @PostMapping("/add")
     public String addBank(@RequestBody BankAccount account){
         return accService.addBankacc(account);
@@ -34,6 +39,11 @@ public class BankAccountController {
     @PatchMapping("/{id}")
     public String updateBank(@PathVariable Long id, @RequestBody BankAccount account){
         return accService.updatebankacc(id, account);
+    }
+
+    @PatchMapping("/delete/{id}")
+    public String deleteBank(@PathVariable Long id){
+        return accService.tempDeleteBank(id);
     }
 
 }

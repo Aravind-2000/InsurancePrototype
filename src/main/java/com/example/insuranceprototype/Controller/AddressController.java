@@ -36,5 +36,9 @@ public class AddressController {
     public String updateaddress(@PathVariable Long id,@RequestBody ClientAddressTable address ){
         return addressService.update(id, address);
     }
+    @PatchMapping("/delete/{id}")
+    public String deleteAddress(@PathVariable Long id){
+        return addressService.deleteAddress(id);
+    }
 
 }

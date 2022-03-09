@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientAddressService {
@@ -37,6 +36,9 @@ public class ClientAddressService {
     public String update(Long id, ClientAddressTable clientAddress){
         ClientAddressTable ca = addressRepo.getById(id);
 
+        if(clientAddress.getToAddress() != null){
+            ca.setToAddress(clientAddress.getToAddress());
+        }
         if(clientAddress.getAddressLine1() != null){
             ca.setAddressLine1(clientAddress.getAddressLine1());
         }
@@ -52,14 +54,17 @@ public class ClientAddressService {
         if(clientAddress.getState() != null){
             ca.setState(clientAddress.getState());
         }
+        if(clientAddress.getCountry() != null){
+            ca.setCountry(clientAddress.getCountry());
+        }
         if(clientAddress.getAddressType() != null){
             ca.setAddressType(clientAddress.getAddressType());
         }
-        if(clientAddress.getIsPresentAddress() == -1){
-            ca.setIsPresentAddress(-1);
+        if(!clientAddress.getIsPresentAddress()){
+            ca.setIsPresentAddress(true);
         }
-        if(clientAddress.getIsPresentAddress() == 1){
-            ca.setIsPresentAddress(1);
+        if(clientAddress.getIsPresentAddress()){
+            ca.setIsPresentAddress(false);
         }
         if(clientAddress.getValidFlag() == -1){
             ca.setValidFlag(-1);
@@ -68,6 +73,13 @@ public class ClientAddressService {
             ca.setValidFlag(1);
         }
         addressRepo.save(ca);
+        return errorService.getErrorById("ER003");
+    }
+
+    public String deleteAddress(Long id){
+        ClientAddressTable add = addressRepo.getById(id);
+        add.setValidFlag(-1);
+        addressRepo.save(add);
         return errorService.getErrorById("ER003");
     }
 
