@@ -50,8 +50,8 @@ public class PersonalDetails  {
 
     private String result;
 
-    @Lob
-    private byte[] resume;
+//    @Lob
+//    private byte[] resume;
 
     @CreationTimestamp
     private LocalDateTime createdTime;
