@@ -27,16 +27,15 @@ public class AgentAppointmentDetails {
     @JoinColumn(name = "clientId", insertable = false, updatable = false)
     private ClientMaintainPersonal client;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate dateAppointed;
 
     private String exclusive;
-    private String previousAgent;
+    private Boolean previousAgent;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate prevDateOfTermination;
 
-    private String statusFlag;
     private String distributionChannel;
     private String branch;
     private String areaCode;

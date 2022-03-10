@@ -34,21 +34,27 @@ public class AgentAppoinmentService {
         return errorService.getErrorById("ER001");
     }
 
+    public List<AgentAppointmentDetails> search(String key){
+        return agentAppointmentDetailsRepository.search(key);
+    }
+
     public String updateAgent(Long id ,AgentAppointmentDetails agentAppoinmentDetails){
         AgentAppointmentDetails agent = agentAppointmentDetailsRepository.getById(id);
 
         if(agentAppoinmentDetails.getClientId() != null){
             agent.setClientId(agentAppoinmentDetails.getClientId());
         }
-
+        if(agentAppoinmentDetails.getClient() != null){
+            agent.setClient(agentAppoinmentDetails.getClient());
+        }
         if(agentAppoinmentDetails.getDateAppointed() != null){
             agent.setDateAppointed(agentAppoinmentDetails.getDateAppointed());
         }
-        if(agentAppoinmentDetails.getExclusive() != null){
-            agent.setExclusive(agentAppoinmentDetails.getExclusive());
+        if(agentAppoinmentDetails.getPreviousAgent()){
+            agent.setPreviousAgent(false);
         }
-        if(agentAppoinmentDetails.getPreviousAgent() != null){
-            agent.setPreviousAgent(agentAppoinmentDetails.getPreviousAgent());
+        if(!agentAppoinmentDetails.getPreviousAgent()){
+            agent.setPreviousAgent(true);
         }
         if(agentAppoinmentDetails.getPrevDateOfTermination() != null){
             agent.setPrevDateOfTermination(agentAppoinmentDetails.getPrevDateOfTermination());
@@ -95,12 +101,13 @@ public class AgentAppoinmentService {
         if(agentAppoinmentDetails.getCommissionClass() != null){
             agent.setCommissionClass(agentAppoinmentDetails.getCommissionClass());
         }
-        if(agentAppoinmentDetails.getValidFlag() == -1){
-            agent.setValidFlag(-1);
-        }
-        if(agentAppoinmentDetails.getValidFlag() == 1){
-            agent.setValidFlag(1);
-        }
+        agentAppointmentDetailsRepository.save(agent);
+        return errorService.getErrorById("ER003");
+    }
+
+    public String delete(Long id){
+        AgentAppointmentDetails agent = agentAppointmentDetailsRepository.getValidAgent(id);
+        agent.setValidFlag(-1);
         agentAppointmentDetailsRepository.save(agent);
         return errorService.getErrorById("ER003");
     }

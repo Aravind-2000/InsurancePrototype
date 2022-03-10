@@ -27,6 +27,11 @@ public class AgentController {
         return agentService.getAgentById(id);
     }
 
+    @GetMapping("/search/{val}")
+    public List<AgentAppointmentDetails> globalSearch(@PathVariable String val){
+        return agentService.search(val);
+    }
+
     @PostMapping("/add")
     public String addagent(@RequestBody AgentAppointmentDetails agent){
         return agentService.addAgent(agent);
@@ -35,5 +40,9 @@ public class AgentController {
     @PatchMapping("/{id}")
     public String updateAgent(@PathVariable Long id,@RequestBody AgentAppointmentDetails agent ){
         return agentService.updateAgent(id, agent);
+    }
+    @PatchMapping("/delete/{id}")
+    public String softDelete(@PathVariable Long id){
+        return agentService.delete(id);
     }
 }
