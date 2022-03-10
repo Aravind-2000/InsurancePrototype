@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.Multipart;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,15 +41,19 @@ public class DetailsService {
     @Autowired
     private NotificationService notificationService;
 
+    String resumePath ;
+
     public List<PersonalDetails> getAllDetails(){
         return detailsRepo.findAll();
     }
 
     public String saveDetails(PersonalDetails details) throws IOException {
         details.setCurrentStatus("Captured");
+//        resumePath = String.valueOf(pdfService.uploadToDirectory(file));
         detailsRepo.save(details);
         String path = pdfService.pdfConfirmation(details.getId());
-        String body = " Hi " + details.getName() +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
+        String body = " Hi " + details.getName()
+                +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
         String sub = "Confirmation Email";
         emailService.sendMail(details.getEmail(), sub, body,path);
         return "Candidate ID " + details.getId() + " details saved successfully";
@@ -104,12 +109,16 @@ public class DetailsService {
         if(details.getEmployee() != null){
             pd.setEmployee(details.getEmployee());
             pd.setCurrentStatus("Assigned");
-            String b1 = " Hi " + pd.getName() +  " This mail is  regarding about your Interview. \n your Interview is assigned on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))+ "  \n Thank You.";
+            String b1 = " Hi " + pd.getName()
+                    +  " This mail is  regarding about your Interview. \n your Interview is assigned on "
+                    + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))+ "  \n Thank You.";
             String s1 = "Interview Call Letter";
             String path = pdfService.pdfCallLetter(pd.getId());
             emailService.sendMail(pd.getEmail(), s1, b1, path);
             Employee emp = empRepo.getById(details.getEmployee());
-            String b2 = " Hi " + emp.getEmployeeName() +  "\n A Candidate's interview has been assigned to you on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm ")) + " \n Thank you";
+            String b2 = " Hi " + emp.getEmployeeName()
+                    +  "\n A Candidate's interview has been assigned to you on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))
+                    + " \n Thank you";
             String s2 = " Interview Assigned Notification ";
             emailService.sendEmail(emp.getEmployeeEmail(), s2, b2);
             notificationService
