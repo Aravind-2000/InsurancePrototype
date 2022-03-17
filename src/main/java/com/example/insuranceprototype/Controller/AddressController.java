@@ -41,4 +41,9 @@ public class AddressController {
         return addressService.deleteAddress(id);
     }
 
+    @DeleteMapping("/{id}")
+    public String harddelete(@PathVariable Long id){
+        return addressService.hardDelete(id);
+    }
+
 }

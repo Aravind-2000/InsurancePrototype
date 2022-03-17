@@ -83,4 +83,9 @@ public class ClientAddressService {
         return errorService.getErrorById("ER003");
     }
 
+    public String hardDelete(Long id){
+        addressRepo.deleteById(id);
+        return errorService.getErrorById("ER003");
+    }
+
 }
