@@ -86,12 +86,10 @@ public class PdfService {
         return filepath;
     }
 
-    public Path uploadToDirectory(MultipartFile file) throws IOException{
-        byte[] bytes = file.getBytes();
-        Path path = Paths.get(("src/main/resources/resumefiles/") + file.getOriginalFilename());
-        Files.write(path,bytes);
+    public Path uploadToDirectory(byte[] fileArray, String email) throws IOException{
+        Path path = Paths.get(("src/main/resources/resumefiles/") + email);
+        Files.write(path,fileArray);
         return path;
     }
-
 
 }

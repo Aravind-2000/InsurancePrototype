@@ -49,8 +49,8 @@ public class DetailsService {
 
     public String saveDetails(PersonalDetails details) throws IOException {
         details.setCurrentStatus("Captured");
-//        resumePath = String.valueOf(pdfService.uploadToDirectory(file));
         detailsRepo.save(details);
+        resumePath = String.valueOf(pdfService.uploadToDirectory(details.getResume(), details.getEmail()));
         String path = pdfService.pdfConfirmation(details.getId());
         String body = " Hi " + details.getName()
                 +  " Thank you for applying with our company. \n Shortly you will receive a email from us regarding your interview \n Thank You.";
@@ -120,7 +120,7 @@ public class DetailsService {
                     +  "\n A Candidate's interview has been assigned to you on " + pd.getAvailableDateAndTime().format(DateTimeFormatter.ofPattern("dd-MMM-yyyy 'at' HH:mm "))
                     + " \n Thank you";
             String s2 = " Interview Assigned Notification ";
-            emailService.sendEmail(emp.getEmployeeEmail(), s2, b2);
+            emailService.sendMail(emp.getEmployeeEmail(), s2, b2, resumePath);
             notificationService
                     .addNotification(
                             "INTERVIEW",
