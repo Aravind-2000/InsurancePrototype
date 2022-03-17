@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
-@Getter
-@Setter
 @RestController
 @CrossOrigin
 @RequestMapping("/notification")
@@ -29,19 +28,29 @@ public class NotificationController {
         return notificationService.getAllNotification();
     }
 
-
+    @GetMapping("/{id}")
+    public Optional<Notification> getEvent(@PathVariable Integer id){
+        return notificationService.getNotificationById(id);
+    }
 
     @GetMapping("/employee/{id}")
     public List<Notification> getbyEMployee(@PathVariable Long id){
         return notificationService.getByEmployee(id);
     }
 
-//	@PostMapping("/addNotification")
-//	public String addNotification(@PathVariable(value = "notification_type") String notification_type, @PathVariable(value = "notification_priority") String notification_priority,@PathVariable(value = "employee_id") Integer employee_id, @PathVariable(value = "agent_id") Integer agent_id, @PathVariable(value = "notification_text") String notification_text){
-//		notificationService.addNotification(notification_type, notification_priority, notification_text, employee_id,agent_id );
-//
-//		return "Notification is added successfully ";
-//	}
+    @PostMapping("/add")
+    public void addNotification(@RequestBody Notification event){
+        notificationService.addEvent(event);
+    }
 
+    @PatchMapping("/{id}")
+    public void updatenotification(@PathVariable Integer id, @RequestBody Notification event){
+        notificationService.updateEvent(id, event);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteevent(@PathVariable Integer id){
+        notificationService.deleteEvent(id);
+    }
 
 }

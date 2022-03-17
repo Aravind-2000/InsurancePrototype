@@ -18,7 +18,7 @@ public class NotificationService {
         return notificationRepository.findAll();
     }
 
-    public Optional<Notification> getNotificationById(Long id){
+    public Optional<Notification> getNotificationById(Integer id){
         return notificationRepository.findById(id);
     }
 
@@ -31,8 +31,25 @@ public class NotificationService {
 		notificationRepository.save(n);
 	}
 
-//    public String addNotification(Notification notification) {
-//        notificationRepository.save(notification);
-//        return "Notification saved successfully ";
-//    }
+    public void addEvent(Notification event){
+        notificationRepository.save(event);
+    }
+
+    public void updateEvent(Integer id, Notification event){
+        Notification not = notificationRepository.getById(id);
+        if(event.getNotificationPriority() != null){
+            not.setNotificationPriority(event.getNotificationPriority());
+        }
+        if(event.getNotificationText() != null){
+            not.setNotificationText(event.getNotificationText());
+        }
+        if(event.getNotificationType() != null){
+            not.setNotificationType(event.getNotificationType());
+        }
+        notificationRepository.save(not);
+    }
+
+    public void deleteEvent(Integer id){
+        notificationRepository.deleteById(id);
+    }
 }
