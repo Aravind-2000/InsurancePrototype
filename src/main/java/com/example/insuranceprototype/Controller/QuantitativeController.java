@@ -2,6 +2,7 @@ package com.example.insuranceprototype.Controller;
 
 
 import com.example.insuranceprototype.Entity.Quantitative;
+import com.example.insuranceprototype.Repository.QuantitativeRepositroy;
 import com.example.insuranceprototype.Service.QuantitativeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class QuantitativeController {
 
     @Autowired
     private QuantitativeService quantitativeService;
+
+    @Autowired
+    private QuantitativeRepositroy quantsRepo;
 
     @GetMapping("/getall")
     public List<Quantitative> getallquants(){
@@ -36,6 +40,11 @@ public class QuantitativeController {
     @PatchMapping("/{id}")
     public Quantitative updatequants(@PathVariable(value = "id") Long id, @RequestBody Quantitative quantitative){
         return quantitativeService.updateDetails(id, quantitative);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteQuants(@PathVariable Long id){
+         quantsRepo.deleteById(id);
     }
 
 }

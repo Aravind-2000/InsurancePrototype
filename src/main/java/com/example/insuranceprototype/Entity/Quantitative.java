@@ -4,6 +4,8 @@ package com.example.insuranceprototype.Entity;
 import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,10 +29,10 @@ public class Quantitative {
     private String codingAndDecodingComments;
     private long overallRating;
     private String result;
-    @Timestamp
+    @CreationTimestamp
     private LocalDateTime createdTime;
 
-    @Timestamp
+    @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
 
