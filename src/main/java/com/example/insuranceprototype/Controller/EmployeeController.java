@@ -2,6 +2,7 @@ package com.example.insuranceprototype.Controller;
 
 
 import com.example.insuranceprototype.Entity.Employee;
+import com.example.insuranceprototype.Entity.PersonalDetails;
 import com.example.insuranceprototype.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +38,18 @@ public class EmployeeController {
         return empService.updateEmpDetails(id, employee);
     }
 
+    @GetMapping("/today/{id}")
+    public List<PersonalDetails> getTodaysCandidates(@PathVariable Long id){
+        return empService.todaysInterview(id);
+    }
+
+    @GetMapping("/upcoming/{id}")
+    public List<PersonalDetails> getUpcomingCandidates(@PathVariable Long id){
+        return empService.upcomingCandidates(id);
+    }
+
+    @GetMapping("/passed/{id}")
+    public List<PersonalDetails> passedAssignedCandidates(@PathVariable Long id){
+        return empService.getPassedAssignedCandidates(id);
+    }
 }
