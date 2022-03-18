@@ -72,10 +72,10 @@ public class EmployeeService {
 
     public List<PersonalDetails> upcomingCandidates(Long id){
         Employee employee = empRepo.getById(id);
-        LocalDateTime data = LocalDateTime.now();
+        LocalDate data = LocalDate.now();
         List<PersonalDetails> upcomingCandidates = new ArrayList<>();
         for(int i=0; i<employee.getAssignedCandidates().size(); i++){
-            if(employee.getAssignedCandidates().get(i).getAvailableDateAndTime().isAfter(data)){
+            if(employee.getAssignedCandidates().get(i).getAvailableDateAndTime().toLocalDate().isAfter(data)){
                 upcomingCandidates.add(employee.getAssignedCandidates().get(i));
             }
         }
