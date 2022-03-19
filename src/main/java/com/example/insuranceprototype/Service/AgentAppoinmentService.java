@@ -50,11 +50,8 @@ public class AgentAppoinmentService {
         if(agentAppoinmentDetails.getDateAppointed() != null){
             agent.setDateAppointed(agentAppoinmentDetails.getDateAppointed());
         }
-        if(agentAppoinmentDetails.getPreviousAgent()){
-            agent.setPreviousAgent(false);
-        }
-        if(!agentAppoinmentDetails.getPreviousAgent()){
-            agent.setPreviousAgent(true);
+        if(agentAppoinmentDetails.getPreviousAgent() != null){
+            agent.setPreviousAgent(agentAppoinmentDetails.getPreviousAgent());
         }
         if(agentAppoinmentDetails.getPrevDateOfTermination() != null){
             agent.setPrevDateOfTermination(agentAppoinmentDetails.getPrevDateOfTermination());

@@ -60,11 +60,8 @@ public class ClientAddressService {
         if(clientAddress.getAddressType() != null){
             ca.setAddressType(clientAddress.getAddressType());
         }
-        if(!clientAddress.getIsPresentAddress()){
-            ca.setIsPresentAddress(true);
-        }
-        if(clientAddress.getIsPresentAddress()){
-            ca.setIsPresentAddress(false);
+        if(clientAddress.getIsPresentAddress() != null){
+            ca.setIsPresentAddress(clientAddress.getIsPresentAddress());
         }
         if(clientAddress.getValidFlag() == -1){
             ca.setValidFlag(-1);

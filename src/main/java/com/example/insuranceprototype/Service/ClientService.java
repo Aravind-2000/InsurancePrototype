@@ -77,11 +77,8 @@ public class ClientService {
         if(clientDetails.getNameFormat() != null){
             cmp.setNameFormat(clientDetails.getNameFormat());
         }
-        if(!clientDetails.getCompanyDoctor()){
-            cmp.setCompanyDoctor(true);
-        }
-        if(clientDetails.getCompanyDoctor()){
-            cmp.setCompanyDoctor(false);
+        if(clientDetails.getCompanyDoctor() != null){
+            cmp.setCompanyDoctor(clientDetails.getCompanyDoctor());
         }
         if(clientDetails.getBirthDate() != null){
             cmp.setBirthDate(clientDetails.getBirthDate());
