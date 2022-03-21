@@ -52,4 +52,14 @@ public class EmployeeController {
     public List<PersonalDetails> passedAssignedCandidates(@PathVariable Long id){
         return empService.getPassedAssignedCandidates(id);
     }
+
+    @GetMapping("/getpassed/{id}")
+    public long getPassedCount(@PathVariable Long id){
+        return empService.getPassed(id);
+    }
+
+    @GetMapping("/getfailed/{id}")
+    public long getFailedCount(@PathVariable Long id){
+        return empService.getFailed(id);
+    }
 }

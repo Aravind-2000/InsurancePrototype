@@ -93,4 +93,26 @@ public class EmployeeService {
         }
         return  passedCandidates;
     }
+
+    public long getPassed(Long id){
+        Employee employee = empRepo.getById(id);
+        long passed = 0;
+        for(int i =0; i<employee.getAssignedCandidates().size(); i++){
+            if(employee.getAssignedCandidates().get(i).getResult().equals("Passed")){
+                passed += 1;
+            }
+        }
+        return passed;
+    }
+
+    public long getFailed(Long id){
+        Employee employee = empRepo.getById(id);
+        long failed = 0;
+        for(int i =0; i<employee.getAssignedCandidates().size(); i++){
+            if(employee.getAssignedCandidates().get(i).getResult().equals("Failed")){
+                failed += 1;
+            }
+        }
+        return failed;
+    }
 }
