@@ -94,6 +94,7 @@ public class EmployeeService {
         return  passedCandidates;
     }
 
+
     public long getPassed(Long id){
         Employee employee = empRepo.getById(id);
         long passed = 0;

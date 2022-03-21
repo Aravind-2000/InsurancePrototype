@@ -53,6 +53,7 @@ public class EmployeeController {
         return empService.getPassedAssignedCandidates(id);
     }
 
+
     @GetMapping("/getpassed/{id}")
     public long getPassedCount(@PathVariable Long id){
         return empService.getPassed(id);
