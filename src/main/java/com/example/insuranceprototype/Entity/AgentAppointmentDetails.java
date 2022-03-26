@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,7 +40,16 @@ public class AgentAppointmentDetails {
     private String distributionChannel;
     private String branch;
     private String areaCode;
-    private String agentType;
+
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Long agentType;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "agentType", insertable = false, updatable = false)
+    private AgentTypeLevel agentTypeLevel;
+
+
     private String reportingTo;
 
     private String payMethod;
@@ -54,12 +64,21 @@ public class AgentAppointmentDetails {
     private String servicingCommission;
     private String commissionClass;
 
+    private Long upLevelAgentId;
+
+    @OneToMany(mappedBy = "upLevelAgentId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AgentAppointmentDetails> downLevelAgents;
+
+    private Long officeId;
+
     private int validFlag;
 
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @CreationTimestamp
     private LocalDateTime createdDate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 }

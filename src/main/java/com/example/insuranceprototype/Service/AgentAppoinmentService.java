@@ -98,6 +98,12 @@ public class AgentAppoinmentService {
         if(agentAppoinmentDetails.getCommissionClass() != null){
             agent.setCommissionClass(agentAppoinmentDetails.getCommissionClass());
         }
+        if(agentAppoinmentDetails.getOfficeId() != null){
+            agent.setOfficeId(agentAppoinmentDetails.getOfficeId());
+        }
+        if(agentAppoinmentDetails.getUpLevelAgentId() != null){
+            agent.setUpLevelAgentId(agentAppoinmentDetails.getUpLevelAgentId());
+        }
         agentAppointmentDetailsRepository.save(agent);
         return errorService.getErrorById("ER003");
     }
