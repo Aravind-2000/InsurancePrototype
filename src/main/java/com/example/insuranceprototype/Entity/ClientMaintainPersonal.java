@@ -68,8 +68,10 @@ public class ClientMaintainPersonal {
     private List<Proof> proofList = new ArrayList<>();
 
     @CreationTimestamp
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LocalDateTime createdDate;
 
     @UpdateTimestamp
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LocalDateTime modifiedDate;
 }
