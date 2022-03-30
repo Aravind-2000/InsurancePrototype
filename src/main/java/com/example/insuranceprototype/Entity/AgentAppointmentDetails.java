@@ -50,8 +50,6 @@ public class AgentAppointmentDetails {
     private AgentTypeLevel agentTypeLevel;
 
 
-    private String reportingTo;
-
     private String payMethod;
     private String payFrequency;
     private String currencyType;

@@ -47,6 +47,9 @@ public class AgentAppoinmentService {
         if(agentAppoinmentDetails.getClient() != null){
             agent.setClient(agentAppoinmentDetails.getClient());
         }
+        if(agentAppoinmentDetails.getClient() != null){
+            agent.setClient(agentAppoinmentDetails.getClient());
+        }
         if(agentAppoinmentDetails.getDateAppointed() != null){
             agent.setDateAppointed(agentAppoinmentDetails.getDateAppointed());
         }
@@ -67,9 +70,6 @@ public class AgentAppoinmentService {
         }
         if(agentAppoinmentDetails.getAgentType() != null){
             agent.setAgentType(agentAppoinmentDetails.getAgentType());
-        }
-        if(agentAppoinmentDetails.getReportingTo() != null){
-            agent.setReportingTo(agentAppoinmentDetails.getReportingTo());
         }
         if(agentAppoinmentDetails.getPayMethod() != null){
             agent.setPayMethod(agentAppoinmentDetails.getPayMethod());
