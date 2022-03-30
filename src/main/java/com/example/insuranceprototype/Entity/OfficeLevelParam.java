@@ -21,4 +21,6 @@ public class OfficeLevelParam {
 
     private String officeLevelDesc;
 
+    private int isValid;
+
 }
