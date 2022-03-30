@@ -22,4 +22,6 @@ public class AgentTypeLevel {
 
     private Long agentLevelId;
 
+    private int isValid;
+
 }
