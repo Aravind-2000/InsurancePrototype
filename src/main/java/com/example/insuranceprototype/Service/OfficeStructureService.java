@@ -20,6 +20,11 @@ public class OfficeStructureService {
     public List<OfficeStructure> getAll(){
         return officeStructureRepository.findAll();
     }
+
+    public List<OfficeStructure> getAllActive(){
+        return officeStructureRepository.getAllActiveOffices();
+    }
+
     public Optional<OfficeStructure> getById(Long id){
         return officeStructureRepository.findById(id);
     }
@@ -29,6 +34,7 @@ public class OfficeStructureService {
     }
 
     public String addOffice(OfficeStructure officeStructure){
+        officeStructure.setOfficeStatus("active");
         officeStructureRepository.save(officeStructure);
         return "Added";
     }
@@ -38,21 +44,24 @@ public class OfficeStructureService {
     }
 
     public String updateOffice(Long id, OfficeStructure officeStructure){
+
+
         OfficeStructure office = officeStructureRepository.getById(id);
+
         if(officeStructure.getCompanyId() != null){
             office.setCompanyId(officeStructure.getCompanyId());
         }
-        if(officeStructure.getCompany() != null){
-            office.setCompany(officeStructure.getCompany());
+        if(officeStructure.getOfficeName() != null){
+            office.setOfficeName(officeStructure.getOfficeName());
+        }
+        if(officeStructure.getCompanyId() != null){
+            office.setCompanyId(officeStructure.getCompanyId());
         }
         if(officeStructure.getOfficeLevelId() != null){
             office.setOfficeLevelId(officeStructure.getOfficeLevelId());
         }
         if(officeStructure.getUpLevelOfficeId() != null){
             office.setUpLevelOfficeId(officeStructure.getUpLevelOfficeId());
-        }
-        if(officeStructure.getCountryCode() != null){
-            office.setCountryCode(officeStructure.getCountryCode());
         }
         officeStructureRepository.save(office);
         return errorService.getErrorById("ER003");
@@ -61,6 +70,7 @@ public class OfficeStructureService {
     public String deactivateCompany(Long id){
         OfficeStructure office = officeStructureRepository.getById(id);
         office.setOfficeStatus("inactive");
+        officeStructureRepository.save(office);
         return errorService.getErrorById("ER003");
     }
 }

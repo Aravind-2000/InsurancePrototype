@@ -19,6 +19,8 @@ public class OfficeStructure {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long officeId;
 
+    private String officeName;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long companyId;
 
@@ -26,7 +28,6 @@ public class OfficeStructure {
     @JoinColumn(name = "companyId",updatable = false,insertable = false)
     private Company company;
 
-    private String countryCode;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long officeLevelId;

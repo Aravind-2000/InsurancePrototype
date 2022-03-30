@@ -10,6 +10,9 @@ import java.util.function.LongFunction;
 
 public interface OfficeStructureRepository extends JpaRepository<OfficeStructure , Long> {
 
+    @Query(value = "select * from office_structure where office_status = 'active' ", nativeQuery = true)
+    List<OfficeStructure> getAllActiveOffices();
+
     @Query(value = "select * from office_structure  where up_level_office_id = :id", nativeQuery = true)
     List<OfficeStructure> getUpLevel(Long id);
 

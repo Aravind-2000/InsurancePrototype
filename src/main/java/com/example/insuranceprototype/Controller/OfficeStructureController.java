@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("officestructure")
 public class OfficeStructureController {
 
@@ -17,7 +18,7 @@ public class OfficeStructureController {
 
     @GetMapping("/getall")
     public List<OfficeStructure> get(){
-        return officeStructureService.getAll();
+        return officeStructureService.getAllActive();
     }
 
     @GetMapping("/getbranch/{id}")
