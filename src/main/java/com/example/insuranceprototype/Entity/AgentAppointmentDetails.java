@@ -37,8 +37,9 @@ public class AgentAppointmentDetails {
     @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate prevDateOfTermination;
 
+    private Long previousAgentId;
+
     private String distributionChannel;
-    private String branch;
     private String areaCode;
 
 

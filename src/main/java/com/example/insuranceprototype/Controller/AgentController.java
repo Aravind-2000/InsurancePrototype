@@ -22,6 +22,11 @@ public class AgentController {
         return agentService.getAllAgent();
     }
 
+    @GetMapping("/getallinvalids")
+    public List<AgentAppointmentDetails> getallinvalidagents(){
+        return agentService.getInvalidAgents();
+    }
+
     @GetMapping("/{id}")
     public AgentAppointmentDetails getAgent(@PathVariable Long id){
         return agentService.getAgentById(id);

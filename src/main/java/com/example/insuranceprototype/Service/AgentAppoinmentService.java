@@ -24,6 +24,10 @@ public class AgentAppoinmentService {
         return agentAppointmentDetailsRepository.getallValidAgents();
     }
 
+    public List<AgentAppointmentDetails> getInvalidAgents(){
+        return agentAppointmentDetailsRepository.getAllInvalidAgents();
+    }
+
     public AgentAppointmentDetails getAgentById(Long id){
         return agentAppointmentDetailsRepository.getValidAgent(id);
     }
@@ -59,11 +63,11 @@ public class AgentAppoinmentService {
         if(agentAppoinmentDetails.getPrevDateOfTermination() != null){
             agent.setPrevDateOfTermination(agentAppoinmentDetails.getPrevDateOfTermination());
         }
+        if(agentAppoinmentDetails.getPreviousAgentId() != null){
+            agent.setPreviousAgentId(agent.getPreviousAgentId());
+        }
         if(agentAppoinmentDetails.getDistributionChannel() != null){
             agent.setDistributionChannel(agentAppoinmentDetails.getDistributionChannel());
-        }
-        if(agentAppoinmentDetails.getBranch() != null){
-            agent.setBranch(agentAppoinmentDetails.getBranch());
         }
         if(agentAppoinmentDetails.getAreaCode() != null){
             agent.setAreaCode(agentAppoinmentDetails.getAreaCode());

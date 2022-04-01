@@ -20,4 +20,6 @@ public interface AgentAppointmentDetailsRepository extends JpaRepository<AgentAp
     @Query(value = "select * from agent_appointment_details where id = :key and valid_flag = 1 ", nativeQuery = true)
     List<AgentAppointmentDetails> search(String key);
 
+    @Query(value = "select * from agent_appointment_details where valid_flag = -1", nativeQuery = true)
+    List<AgentAppointmentDetails> getAllInvalidAgents();
 }
