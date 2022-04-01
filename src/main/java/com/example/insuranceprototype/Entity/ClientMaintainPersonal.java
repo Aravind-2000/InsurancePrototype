@@ -39,6 +39,8 @@ public class ClientMaintainPersonal {
     @JoinColumn(name = "addressid", updatable = false, insertable = false)
     private ClientAddressTable address;
 
+
+    private String email;
     private String mobileNumber;
     private String postalCode;
     private String country;
