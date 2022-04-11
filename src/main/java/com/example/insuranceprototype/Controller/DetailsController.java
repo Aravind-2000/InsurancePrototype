@@ -2,16 +2,16 @@ package com.example.insuranceprototype.Controller;
 
 
 import com.example.insuranceprototype.Entity.PersonalDetails;
+import com.example.insuranceprototype.Repository.PermissionRepository;
 import com.example.insuranceprototype.Service.DetailsService;
+import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @CrossOrigin
@@ -21,14 +21,32 @@ public class DetailsController {
     @Autowired
     private DetailsService detailsService;
 
-    @GetMapping("/getallDetails")
-    public List<PersonalDetails> getalldetails(){
-        return detailsService.getAllDetails();
+    @Autowired
+    private PermissionRepository permissionRepo;
+
+    @Autowired
+    private ErrorService errorService;
+
+    int programId = 8;
+
+    @GetMapping("/getallDetails/{userid}")
+    public ResponseEntity<?> getalldetails(@PathVariable Long userid){
+
+        String method = "get-all-candidate";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok( detailsService.getAllDetails());
+        }
+        return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
     }
 
-    @GetMapping("/get/{id}")
-    public Optional<PersonalDetails> getbyid(@PathVariable("id") Long id){
-        return detailsService.getByCandidateId(id);
+    @GetMapping("/get/{id}/{userid}")
+    public ResponseEntity<?> getbyid(@PathVariable("id") Long id,@PathVariable Long userid){
+
+        String method = "get-candidate";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok( detailsService.getByCandidateId(id));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
     @GetMapping("/application/{id}")
@@ -41,14 +59,27 @@ public class DetailsController {
         return detailsService.saveDetails(details);
     }
 
-    @PatchMapping("/update/{id}")
-    public String updatedetails(@PathVariable Long id , @RequestBody PersonalDetails details) throws FileNotFoundException {
-        return detailsService.updateDetails(id, details);
+
+
+
+    @PatchMapping("/update/{id}/{userid}")
+    public ResponseEntity<?> updatedetails(@PathVariable Long id , @RequestBody PersonalDetails details,@PathVariable Long userid) throws FileNotFoundException {
+
+        String method = "update-candidate";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(detailsService.updateDetails(id, details));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deletedetails(@PathVariable Long id){
-        return detailsService.deleteDetails(id);
+    @DeleteMapping("/delete/{id}/{userid}")
+    public ResponseEntity<?> deletedetails(@PathVariable Long id,@PathVariable Long userid){
+        String method = "hard-delete-candidate";
+
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(detailsService.deleteDetails(id));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
     @GetMapping("/search/name/{name}")

@@ -1,9 +1,14 @@
 package com.example.insuranceprototype.Controller;
 
 
+import com.example.insuranceprototype.Auth.repository.UserRepository;
 import com.example.insuranceprototype.Entity.ClientAddressTable;
+import com.example.insuranceprototype.Repository.PermissionRepository;
 import com.example.insuranceprototype.Service.ClientAddressService;
+import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,34 +21,73 @@ public class AddressController {
     @Autowired
     private ClientAddressService addressService;
 
+    @Autowired
+    private UserRepository userRepo;
 
-    @GetMapping("/getall")
-    public List<ClientAddressTable> getall(){
-        return  addressService.getallAddress();
+    @Autowired
+    private PermissionRepository permissionRepo;
+
+    @Autowired
+    private ErrorService errorService;
+
+    int programId = 3;
+
+
+    @GetMapping("/getall/{userid}")
+    public ResponseEntity<?> getall(@PathVariable Long userid){
+        String method = "get-all-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.getallAddress());
+        }
+        return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
     }
 
-    @GetMapping("{id}")
-    public ClientAddressTable getaddress(@PathVariable Long id){
-        return addressService.getAddress(id);
+    @GetMapping("{id}/{userid}")
+    public ResponseEntity<?> getaddress(@PathVariable Long id, @PathVariable Long userid){
+        String method = "get-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.getAddress(id));
+        }
+        return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
-    @PostMapping("/add")
-    public String addaddress(@RequestBody ClientAddressTable address){
-        return addressService.addAddress(address);
+    @PostMapping("/add/{userid}")
+    public ResponseEntity<?> addaddress(@RequestBody ClientAddressTable address, @PathVariable Long userid){
+        String method ="add-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.addAddress(address));
+        }
+
+        return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
-    @PatchMapping("/{id}")
-    public String updateaddress(@PathVariable Long id,@RequestBody ClientAddressTable address ){
-        return addressService.update(id, address);
+    @PatchMapping("/{id}/{userid}")
+    public ResponseEntity<?> updateaddress(@PathVariable Long id,@RequestBody ClientAddressTable address , @PathVariable Long userid){
+        String method = "update-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.update(id, address));
+        }
+
+        return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
-    @PatchMapping("/delete/{id}")
-    public String deleteAddress(@PathVariable Long id){
-        return addressService.deleteAddress(id);
+    @PatchMapping("/delete/{id}/{userid}")
+    public ResponseEntity<?> deleteAddress(@PathVariable Long id, @PathVariable Long userid ){
+        String method = "soft-delete-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.deleteAddress(id));
+        }
+
+        return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
-    @DeleteMapping("/{id}")
-    public String harddelete(@PathVariable Long id){
-        return addressService.hardDelete(id);
+    @DeleteMapping("/{id}/{userid}")
+    public ResponseEntity<?> harddelete(@PathVariable Long id, @PathVariable Long userid){
+        String method = "hard-delete-address";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(addressService.hardDelete(id));
+        }
+
+        return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
 }

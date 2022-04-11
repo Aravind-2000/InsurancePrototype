@@ -3,8 +3,11 @@ package com.example.insuranceprototype.Controller;
 
 import com.example.insuranceprototype.Entity.Employee;
 import com.example.insuranceprototype.Entity.PersonalDetails;
+import com.example.insuranceprototype.Repository.PermissionRepository;
 import com.example.insuranceprototype.Service.EmployeeService;
+import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,24 +21,51 @@ public class EmployeeController {
     @Autowired
     private EmployeeService empService;
 
-    @GetMapping("/getall")
-    public List<Employee> getallemp(){
-        return empService.getallEmployees();
+    @Autowired
+    private PermissionRepository permissionRepo;
+
+    @Autowired
+    private ErrorService errorService;
+
+    int programId = 7;
+
+    @GetMapping("/getall/{userid}")
+    public ResponseEntity<?> getallemp(@PathVariable Long userid){
+
+        String method = "get-all-employee";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok( empService.getallEmployees());
+        }
+        return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
     }
 
-    @GetMapping("/{id}")
-    public Optional<Employee> getempbyid(@PathVariable Long id){
-        return empService.getempById(id);
+    @GetMapping("/{id}/{userid}")
+    public ResponseEntity<?> getempbyid(@PathVariable Long id,@PathVariable Long userid){
+
+        String method = "get-employee";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok(  empService.getempById(id));
+        }
+        return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
     }
 
-    @PostMapping("/add")
-    public String addemp(@RequestBody Employee employee){
-        return empService.addEmployee(employee);
+    @PostMapping("/add/{userid}")
+    public ResponseEntity<?> addemp(@RequestBody Employee employee,@PathVariable Long userid){
+
+        String method = "add-employee";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok( empService.addEmployee(employee));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
-    @PatchMapping("/{id}")
-    public String updateempdetails(@PathVariable Long id, @RequestBody Employee employee){
-        return empService.updateEmpDetails(id, employee);
+    @PatchMapping("/{id}/{userid}")
+    public ResponseEntity<?> updateempdetails(@PathVariable Long id, @RequestBody Employee employee,@PathVariable Long userid){
+        String method = "update-employee";
+        if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
+            return ResponseEntity.ok( empService.updateEmpDetails(id, employee));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
     @GetMapping("/today/{id}")
