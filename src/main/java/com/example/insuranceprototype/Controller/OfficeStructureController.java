@@ -69,7 +69,7 @@ public class OfficeStructureController {
             if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
                 return ResponseEntity.ok(officeStructureService.addOffice(officeStructure));
             }
-            return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
+            return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
     @PatchMapping("/{id}/{userid}")
@@ -79,7 +79,7 @@ public class OfficeStructureController {
             if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
                 return ResponseEntity.ok( officeStructureService.updateOffice(id, officeStructure));
             }
-            return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
+            return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
     @PatchMapping("/softdelete/{id}/{userid}")
@@ -90,7 +90,7 @@ public class OfficeStructureController {
             if(!permissionRepo.isMethodPresent(userid, (long)programId, method).isEmpty()){
                 return ResponseEntity.ok(  officeStructureService.deactivateCompany(id));
             }
-            return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
+            return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 }
 
