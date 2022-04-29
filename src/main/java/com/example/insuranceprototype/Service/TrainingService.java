@@ -7,6 +7,8 @@ import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -103,4 +105,17 @@ public class TrainingService {
         return errorService.getErrorById("ER003");
     }
 
+    public String dateValidation(String startDate, String endDate){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        LocalDate start = LocalDate.parse(startDate, formatter);
+        LocalDate end = LocalDate.parse(endDate, formatter);
+        if(start.isBefore(end)){
+            return null;
+        }
+        else{
+            return errorService.getErrorById("ER011");
+        }
+    }
 }

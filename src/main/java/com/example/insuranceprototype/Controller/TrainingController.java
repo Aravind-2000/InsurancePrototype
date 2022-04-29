@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("/training")
 @CrossOrigin
@@ -90,6 +92,11 @@ public class TrainingController {
             return ResponseEntity.ok(trainingService.deleteTraining(id));
         }
         return ResponseEntity.ok(errorService.getErrorById("ER007"));
+    }
+
+    @PostMapping("/datevalidation/{startdate}/{enddate}")
+    public ResponseEntity<?> validation(@PathVariable String startdate, @PathVariable String enddate){
+        return ResponseEntity.ok(trainingService.dateValidation(startdate, enddate));
     }
 
 }
