@@ -12,5 +12,8 @@ public interface PermissionRepository extends JpaRepository<Permissions, Long> {
     @Query(value = "select * from permissions where user_id = :userid and method = :method and service_id = :program", nativeQuery = true)
     List<Permissions> isMethodPresent(Long userid, Long program, String method);
 
+    @Query(value = "select method from permissions", nativeQuery = true)
+    List<String> allPermissionMethods();
+
 
 }
