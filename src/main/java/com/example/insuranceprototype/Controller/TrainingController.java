@@ -94,7 +94,7 @@ public class TrainingController {
         return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
-    @PostMapping("/datevalidation/{startdate}/{enddate}")
+    @GetMapping("/datevalidation/{startdate}/{enddate}")
     public ResponseEntity<?> validation(@PathVariable String startdate, @PathVariable String enddate){
         return ResponseEntity.ok(trainingService.dateValidation(startdate, enddate));
     }
