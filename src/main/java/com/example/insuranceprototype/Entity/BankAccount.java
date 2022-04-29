@@ -1,6 +1,7 @@
 package com.example.insuranceprototype.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,9 +31,11 @@ public class BankAccount {
 
 
     @CreationTimestamp
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LocalDateTime createdDate;
 
     @UpdateTimestamp
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private LocalDateTime modifiedDate;
 
 
