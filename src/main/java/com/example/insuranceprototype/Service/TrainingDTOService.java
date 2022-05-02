@@ -19,6 +19,7 @@ public class TrainingDTOService {
         result.setTrainingTopic(training.getTrainingTopic());
         result.setTrainingDesc(training.getTrainingDesc());
         result.setTrainingType(training.getTrainingType());
+        result.setTrainingLevel(training.getTrainingLevel());
         result.setTrainingMode(training.getTrainingMode());
         result.setStartDate(training.getStartDate());
         result.setEndDate(training.getEndDate());
