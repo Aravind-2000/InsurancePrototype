@@ -1,20 +1,25 @@
 package com.example.insuranceprototype.Service;
 
+import com.example.insuranceprototype.Entity.AgentTrainingDTO;
 import com.example.insuranceprototype.Entity.AgentTrainingDetails;
 import com.example.insuranceprototype.Entity.Training;
+import com.example.insuranceprototype.Entity.TrainingDTO;
 import com.example.insuranceprototype.Repository.AgentTrainingRepository;
 import com.example.insuranceprototype.Repository.TrainingRepository;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AgentTrainingService {
 
+
     @Autowired
-    private TrainingRepository trainingRepo;
+    private TrainingDTOService trainingDTOService;
+
     @Autowired
     private AgentTrainingRepository agentTrainingRepo;
 
@@ -22,12 +27,41 @@ public class AgentTrainingService {
     private ErrorService errorService;
 
 
-    public List<AgentTrainingDetails> getAllTraineeAgents(){
-        return agentTrainingRepo.getAllValidTraineeAgents();
+    public List<AgentTrainingDTO> getAllTraineeAgents(){
+
+        List<AgentTrainingDTO> answer = new ArrayList<>();
+        List<AgentTrainingDetails> answerGot =  agentTrainingRepo.getAllValidTraineeAgents();
+
+        answerGot.forEach(agentTrainingDetails -> {
+            AgentTrainingDTO agentTrainingDTO = mapEntityToDTO(agentTrainingDetails);
+            answer.add(agentTrainingDTO);
+        });
+        return answer;
     }
 
-    public AgentTrainingDetails getTraineeAgent(Long id){
-        return agentTrainingRepo.getById(id);
+
+    public AgentTrainingDTO mapEntityToDTO(AgentTrainingDetails agentTrainingDetails){
+        AgentTrainingDTO result = new AgentTrainingDTO();
+        result.setId(agentTrainingDetails.getId());
+        result.setTrainingId(agentTrainingDetails.getTrainingId());
+        result.setTraining(trainingDTOService.mapEntityToDto(agentTrainingDetails.getTraining()));
+        result.setAgentId(agentTrainingDetails.getAgentId());
+        result.setAgent(agentTrainingDetails.getAgent());
+        result.setIsApproved(agentTrainingDetails.getIsApproved());
+        result.setApprovedBy(agentTrainingDetails.getApprovedBy());
+        result.setApprovedByAgent(agentTrainingDetails.getApprovedByAgent());
+        result.setApprovedDate(agentTrainingDetails.getApprovedDate());
+        result.setTotalDays(agentTrainingDetails.getTotalDays());
+        result.setDaysAttended(agentTrainingDetails.getDaysAttended());
+        result.setTrainingScore(agentTrainingDetails.getTrainingScore());
+        result.setTrainingStatus(agentTrainingDetails.getTrainingStatus());
+        result.setComments(agentTrainingDetails.getComments());
+        return result;
+    }
+
+    public AgentTrainingDTO getTraineeAgent(Long id){
+         AgentTrainingDetails agentTrainingDetails =  agentTrainingRepo.getById(id);
+         return mapEntityToDTO(agentTrainingDetails);
     }
 
     public String addTraineeAgent(AgentTrainingDetails traineeAgent){
@@ -95,8 +129,14 @@ public class AgentTrainingService {
         return errorService.getErrorById("ER003");
     }
 
-    public List<AgentTrainingDetails> getMyTrainings(Long agentid){
-        return agentTrainingRepo.getMyTrainings(agentid);
+    public List<AgentTrainingDTO> getMyTrainings(Long agentid){
+        List<AgentTrainingDetails> agentTrainingDetails =  agentTrainingRepo.getMyTrainings(agentid);
+        List<AgentTrainingDTO> answer = new ArrayList<>();
+        agentTrainingDetails.forEach(agentTrainingDetails1 -> {
+            AgentTrainingDTO agentTrainingDTO = mapEntityToDTO(agentTrainingDetails1);
+            answer.add(agentTrainingDTO);
+        });
+        return answer;
     }
 
 }

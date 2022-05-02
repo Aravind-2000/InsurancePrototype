@@ -24,6 +24,7 @@ public class AgentTrainingDetails {
 
     private Long trainingId;
 
+
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "trainingId", updatable = false, insertable = false)
