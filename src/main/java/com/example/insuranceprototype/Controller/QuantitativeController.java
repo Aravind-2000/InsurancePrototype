@@ -7,6 +7,7 @@ import com.example.insuranceprototype.Service.QuantitativeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class QuantitativeController {
     }
 
     @PostMapping("/save")
-    public String savequants(@RequestBody Quantitative quantitative){
+    public String savequants(@RequestBody Quantitative quantitative) throws FileNotFoundException {
         return quantitativeService.saveDetails(quantitative);
     }
     

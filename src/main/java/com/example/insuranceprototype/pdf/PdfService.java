@@ -84,6 +84,32 @@ public class PdfService {
         return filepath;
     }
 
+    public String offerLetterPdf(Long id) throws FileNotFoundException{
+
+        PersonalDetails details = detailsRepo.getById(id);
+        String filepath = "src/main/resources/pdfFiles/" +details.getId() + " " + details.getName() + " - Offer Letter.pdf";
+
+        PdfWriter writer = new PdfWriter(filepath);
+
+        PdfDocument offerLetter = new PdfDocument(writer);
+
+        offerLetter.addNewPage();
+
+        Document document = new Document(offerLetter);
+        document.add(new Paragraph("FuturaInstech Private Limited").setFontSize(16).setBold());
+        document.add(new Paragraph("Address: 1st Main Rd	Judge Colony, Tambaram, Chennai, Tamil Nadu 600064").setFontSize(8).setBold());
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph(" Offer Letter :- "));
+        document.add(new Paragraph("Hi " + details.getName() + " hope you are doing well. As you applied for the position of SOFTWARE DEVELOPER TRAINEE and cleared all our tests."));
+        document.add(new Paragraph("We are glad to inform that you have been selected for this position of SOFTWARE DEVELOPER TRAINEE. "));
+        document.add(new Paragraph("Thank you"));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("This is a system generated message do not reply.").setFontSize(8).setItalic());
+        document.close();
+        return filepath;
+    }
+
     public Path uploadToDirectory(byte[] fileArray, String email) throws IOException{
         Path path = Paths.get(("src/main/resources/resumefiles/") + email);
         Files.write(path,fileArray);
