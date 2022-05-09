@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class AgentTrainingDetails {
+public class TrainingMapping {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class AgentTrainingDetails {
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "trainingId", updatable = false, insertable = false)
-    private Training training;
+    private TrainingSession training;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long agentId;
@@ -52,6 +52,16 @@ public class AgentTrainingDetails {
     private Long totalDays;
 
     private Long daysAttended;
+
+    private String sponsoredBy;
+
+    private int sponsoredPer;
+
+    private Double sponsoredAmount;
+
+    private Double agentContribution;
+
+    private String paymentStatus;
 
     private Double trainingScore;
 

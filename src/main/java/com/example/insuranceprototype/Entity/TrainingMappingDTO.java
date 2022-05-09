@@ -9,12 +9,12 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class AgentTrainingDTO {
+public class TrainingMappingDTO {
 
 
     private Long id;
     private Long trainingId;
-    private TrainingDTO training;
+    private TrainingSessionDTO training;
     private Long agentId;
     private AgentAppointmentDetails agent;
     private Boolean isApproved;
@@ -26,6 +26,16 @@ public class AgentTrainingDTO {
 
     private Long totalDays;
     private Long daysAttended;
+
+    private String sponsoredBy;
+
+    private int sponsoredPer;
+
+    private Double sponsoredAmount;
+
+    private Double agentContribution;
+
+    private String paymentStatus;
     private Double trainingScore;
     private String trainingStatus;
     private String comments;

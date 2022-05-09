@@ -1,26 +1,24 @@
 package com.example.insuranceprototype.Controller;
 
-import com.example.insuranceprototype.Entity.Training;
+import com.example.insuranceprototype.Entity.TrainingSession;
 import com.example.insuranceprototype.Repository.PermissionRepository;
-import com.example.insuranceprototype.Service.TrainingService;
+import com.example.insuranceprototype.Service.TrainingSessionService;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @RestController
 @RequestMapping("/training")
 @CrossOrigin
-public class TrainingController {
+public class TrainingSessionController {
 
 
     @Autowired
     private ErrorService errorService;
 
     @Autowired
-    private TrainingService trainingService;
+    private TrainingSessionService trainingService;
 
     @Autowired
     private PermissionRepository permissionRepo;
@@ -52,7 +50,7 @@ public class TrainingController {
     }
 
     @PostMapping("/add/{userid}")
-    public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody Training training){
+    public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody TrainingSession training){
 
         String method = "add-training";
         if(!permissionRepo.isMethodPresent(userid, programId, method).isEmpty()){
@@ -62,7 +60,7 @@ public class TrainingController {
     }
 
     @PatchMapping("/{id}/{userid}")
-    public ResponseEntity<?> update(@PathVariable Long userid, @PathVariable Long id, @RequestBody Training training){
+    public ResponseEntity<?> update(@PathVariable Long userid, @PathVariable Long id, @RequestBody TrainingSession training){
 
         String method = "update-training";
 

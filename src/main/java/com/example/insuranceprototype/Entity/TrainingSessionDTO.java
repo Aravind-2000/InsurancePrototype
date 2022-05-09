@@ -9,14 +9,12 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class TrainingDTO {
+public class TrainingSessionDTO {
 
     private Long id;
-    private String trainingTopic;
-    private String trainingDesc;
+    private TrainingModuleDTO trainingModule;
     private String trainingType;
     private String trainingMode;
-    private String trainingLevel;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate startDate;
@@ -28,5 +26,4 @@ public class TrainingDTO {
     private String trainingTime;
     private String trainer;
     private Double trainingCost;
-    private String sponsoredBy;
 }

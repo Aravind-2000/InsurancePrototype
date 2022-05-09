@@ -1,9 +1,9 @@
 package com.example.insuranceprototype.Controller;
 
 
-import com.example.insuranceprototype.Entity.AgentTrainingDetails;
+import com.example.insuranceprototype.Entity.TrainingMapping;
 import com.example.insuranceprototype.Repository.PermissionRepository;
-import com.example.insuranceprototype.Service.AgentTrainingService;
+import com.example.insuranceprototype.Service.TrainingMappingService;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 @RequestMapping("/traineeagent")
-public class AgentTrainingController {
+public class TrainingMappingController {
 
     @Autowired
     private ErrorService errorService;
 
     @Autowired
-    private AgentTrainingService agentTrainingService;
+    private TrainingMappingService agentTrainingService;
 
     @Autowired
     private PermissionRepository permissionRepo;
@@ -50,7 +50,7 @@ public class AgentTrainingController {
     }
 
     @PostMapping("/add/{userid}")
-    public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody AgentTrainingDetails traineeDetails){
+    public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody TrainingMapping traineeDetails){
 
         String method = "add-trainee";
 
@@ -62,7 +62,7 @@ public class AgentTrainingController {
 
 
     @PatchMapping("/{id}/{userid}")
-    public ResponseEntity<?> update(@PathVariable Long userid, @PathVariable Long id, @RequestBody AgentTrainingDetails traineeDetails){
+    public ResponseEntity<?> update(@PathVariable Long userid, @PathVariable Long id, @RequestBody TrainingMapping traineeDetails){
 
         String method = "update-trainee-agent";
 
