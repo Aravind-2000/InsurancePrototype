@@ -26,6 +26,10 @@ public class TrainingModuleService {
         return trainingModuleRepo.findById(id).get();
     }
 
+    public List<TrainingModule> globalSearch(String val){
+        return trainingModuleRepo.globalSearch(val);
+    }
+
     public String addModule(TrainingModule module){
         module.setValidFlag(1);
         trainingModuleRepo.save(module);

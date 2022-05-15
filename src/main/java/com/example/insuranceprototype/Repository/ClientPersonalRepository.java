@@ -17,7 +17,7 @@ public interface ClientPersonalRepository extends JpaRepository<ClientMaintainPe
     @Query(value = "select * from client_maintain_personal where id = :clientid and valid_flag = 1 ", nativeQuery = true)
     ClientMaintainPersonal getClientById(Long clientid);
 
-    @Query(value = "select * from client_maintain_personal where id = :key and valid_flag = 1 or given_name like %:key% and valid_flag = 1 or sur_name like %:key% and valid_flag = 1 or mobile_number like %:key%  and valid_flag = 1 or language like %:key% and valid_flag = 1  or marrital_status like %:key% " +
+    @Query(value = "select * from client_maintain_personal where id like %:key% and valid_flag = 1 or given_name like %:key% and valid_flag = 1 or sur_name like %:key% and valid_flag = 1 or mobile_number like %:key%  and valid_flag = 1 or language like %:key% and valid_flag = 1  or marrital_status like %:key% " +
             "and valid_flag = 1", nativeQuery = true )
     List<ClientMaintainPersonal> globalSearch(String key);
 }

@@ -49,6 +49,11 @@ public class TrainingSessionController {
         return ResponseEntity.badRequest().body(errorService.getErrorById("ER007"));
     }
 
+    @GetMapping("/search/{val}")
+    public ResponseEntity<?> search(@PathVariable String val){
+        return ResponseEntity.ok(trainingService.globalSearch(val));
+    }
+
     @PostMapping("/add/{userid}")
     public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody TrainingSession training){
 

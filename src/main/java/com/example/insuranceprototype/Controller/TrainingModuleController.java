@@ -48,6 +48,11 @@ public class TrainingModuleController {
         return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
+    @GetMapping("/search/{val}")
+    public ResponseEntity<?> search(@PathVariable String val){
+        return ResponseEntity.ok(moduleService.globalSearch(val));
+    }
+
     @PostMapping("add/{userid}")
     public ResponseEntity<?> add(@PathVariable Long userid, @RequestBody TrainingModule module){
 

@@ -43,6 +43,10 @@ public class TrainingSessionService {
         return errorService.getErrorById("ER001");
     }
 
+    public List<TrainingSession> globalSearch(String val){
+        return trainingRepo.globalSearch(val);
+    }
+
     public void trainingCostCalculations(TrainingSession training){
         TrainingModule module = moduleRepo.getById(training.getTrainingModuleId());
 
@@ -64,6 +68,10 @@ public class TrainingSessionService {
 
         TrainingSession trainingDetails = trainingRepo.getById(id);
         TrainingModule module = moduleRepo.getById(trainingDetails.getTrainingModuleId());
+
+        if(training.getTrainingCost()!= null){
+            trainingDetails.setTrainingCost(training.getTrainingCost());
+        }
 
         if(training.getTrainingModuleId() != null){
             trainingDetails.setTrainingModuleId(training.getTrainingModuleId());
@@ -113,10 +121,6 @@ public class TrainingSessionService {
 
         if(training.getTrainer()!= null){
             trainingDetails.setTrainer(training.getTrainer());
-        }
-
-        if(training.getTrainingCost()!= null){
-            trainingDetails.setTrainingCost(training.getTrainingCost());
         }
 
         if(training.getContinuanceId()!= null){

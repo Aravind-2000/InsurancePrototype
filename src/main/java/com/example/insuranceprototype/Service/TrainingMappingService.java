@@ -67,6 +67,7 @@ public class TrainingMappingService {
     public String updateTraineeAgentDetails(Long id, TrainingMapping traineeAgent){
         TrainingMapping newDetails = agentTrainingRepo.getById(id);
 
+
         if(traineeAgent.getTrainingId() != null){
             newDetails.setTrainingId(traineeAgent.getTrainingId());
         }
@@ -100,7 +101,7 @@ public class TrainingMappingService {
         }
 
         if(traineeAgent.getSponsoredPer() != 0){
-            calculateSponsoredAmount(newDetails, traineeAgent.getSponsoredPer(), newDetails.getTraining().getTrainingCost());
+            calculateSponsoredAmount(traineeAgent, traineeAgent.getSponsoredPer(), newDetails.getTraining().getTrainingCost());
             newDetails.setSponsoredPer(traineeAgent.getSponsoredPer());
         }
 

@@ -16,7 +16,10 @@ import com.example.insuranceprototype.Auth.repository.UserRepository;
 import com.example.insuranceprototype.Auth.security.jwt.JwtUtils;
 import com.example.insuranceprototype.Auth.security.services.RefreshTokenService;
 import com.example.insuranceprototype.Auth.security.services.UserDetailsImpl;
+import com.example.insuranceprototype.Entity.Role;
 import com.example.insuranceprototype.Repository.EmployeeRepository;
+import com.example.insuranceprototype.Repository.PermissionRepository;
+import com.example.insuranceprototype.Repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,7 +54,13 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @Autowired
+  private RoleRepository roleRepo;
+
+  @Autowired
   RefreshTokenService refreshTokenService;
+
+  @Autowired
+  private PermissionRepository permissionRepository;
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -83,10 +92,14 @@ public class AuthController {
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),signUpRequest.getAgentId(), signUpRequest.getRoleId());
-
+//    assigningPredefinedPermissions(signUpRequest.getRoleId(), user.getId());
     userRepository.save(user);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
+
+//  public void assigningPredefinedPermissions(Long roleId, Long userId){
+//    Role role = roleRepo.getById(roleId);
+//  }
 
   @PostMapping("/refreshtoken")
   public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
