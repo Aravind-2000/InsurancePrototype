@@ -2,10 +2,8 @@ package com.example.insuranceprototype.Entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +29,11 @@ public class Company {
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate companyLicenseIssueDate;
 
-	private String companyCurrency;
+	private Long companyCurrency;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "companyCurrency", updatable = false, insertable = false)
+	private CurrencyCode currency;
 
 	private String companyStatus;
 
