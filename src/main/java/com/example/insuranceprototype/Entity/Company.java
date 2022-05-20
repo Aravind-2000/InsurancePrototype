@@ -33,7 +33,7 @@ public class Company {
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "companyCurrency", updatable = false, insertable = false)
-	private CurrencyCode currency;
+	private CurrencyCode currencyCode;
 
 	private String companyStatus;
 
