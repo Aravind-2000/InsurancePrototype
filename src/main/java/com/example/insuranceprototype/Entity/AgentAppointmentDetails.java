@@ -21,7 +21,7 @@ public class AgentAppointmentDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long clientId;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -43,7 +43,7 @@ public class AgentAppointmentDetails {
     private String areaCode;
 
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long agentType;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
