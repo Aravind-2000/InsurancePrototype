@@ -22,4 +22,7 @@ public interface AgentAppointmentDetailsRepository extends JpaRepository<AgentAp
 
     @Query(value = "select * from agent_appointment_details where valid_flag = -1", nativeQuery = true)
     List<AgentAppointmentDetails> getAllInvalidAgents();
+
+    @Query(value = "select * from agent_appointment_details where office_id = :officeId and valid_flag = 1", nativeQuery = true)
+    List<AgentAppointmentDetails> getAgentsByOffice(Long officeId);
 }

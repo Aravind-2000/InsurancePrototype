@@ -104,4 +104,11 @@ public class AgentController {
         }
         return ResponseEntity.ok().body(errorService.getErrorById("ER008"));
     }
+
+    @GetMapping("/office/{id}")
+    public ResponseEntity<?> getAgentsByOffice(@PathVariable Long id){
+
+        return ResponseEntity.ok(agentService.agentsByOffice(id));
+
+    }
 }

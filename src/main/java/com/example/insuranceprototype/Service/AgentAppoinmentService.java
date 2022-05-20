@@ -32,6 +32,10 @@ public class AgentAppoinmentService {
         return agentAppointmentDetailsRepository.getValidAgent(id);
     }
 
+    public List<AgentAppointmentDetails> agentsByOffice(Long id){
+        return agentAppointmentDetailsRepository.getAgentsByOffice(id);
+    }
+
     public String addAgent(AgentAppointmentDetails agentAppoinmentDetails){
         agentAppoinmentDetails.setValidFlag(1);
         agentAppointmentDetailsRepository.save(agentAppoinmentDetails);
