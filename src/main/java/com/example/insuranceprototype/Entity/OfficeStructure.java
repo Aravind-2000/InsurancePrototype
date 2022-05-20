@@ -21,7 +21,7 @@ public class OfficeStructure {
 
     private String officeName;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long companyId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -29,7 +29,7 @@ public class OfficeStructure {
     private Company company;
 
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long officeLevelId;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
