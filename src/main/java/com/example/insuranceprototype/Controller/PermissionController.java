@@ -29,7 +29,7 @@ public class PermissionController {
         String method = "add-permission";
         if(!permissionRepository.isMethodPresent(userid, programId, method).isEmpty()){
             permissionRepository.save(permissions);
-            return ResponseEntity.ok(errorService.getErrorById("ER001"));
+            return ResponseEntity.ok(permissionRepository.findAll());
         }
         return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
