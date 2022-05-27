@@ -43,6 +43,10 @@ public class OfficeStructureService {
         return officeStructureRepository.getUpLevel(id);
     }
 
+    public List<OfficeStructure> globalSearch(String key){
+        return officeStructureRepository.globalSearch(key);
+    }
+
     public String updateOffice(Long id, OfficeStructure officeStructure){
 
 

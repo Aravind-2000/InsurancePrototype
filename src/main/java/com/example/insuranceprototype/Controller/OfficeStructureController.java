@@ -92,5 +92,10 @@ public class OfficeStructureController {
             }
             return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
+
+    @GetMapping("/search/{key}")
+    public ResponseEntity<?> search(@PathVariable String key){
+        return ResponseEntity.ok(officeStructureService.globalSearch(key));
+    }
 }
 
