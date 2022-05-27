@@ -25,11 +25,14 @@ public class PdfService {
     @Autowired
     private DetailsRepository detailsRepo;
 
+    public static final String baseDir = "D:/Program Files/Company projects/InsurancePrototype/";
+    public static final String baseDir1 = "D:/Program Files/Company projects/InsurancePrototype/target/InsurancePrototype-0.0.1-SNAPSHOT.war/WEB-INF/classes/pdfFiles/";
+
 
     public String pdfConfirmation(Long id) throws FileNotFoundException {
 
         PersonalDetails det = detailsRepo.getById(id);
-        String filepath = "src/main/resources/pdfFiles/" +det.getId() + " " + det.getName() + " - ApplicationForm.pdf";
+        String filepath =  baseDir + "src/main/resources/pdfFiles/" +det.getId() + " " + det.getName() + " - ApplicationForm.pdf";
 
             PdfWriter writer = new PdfWriter(new PdfWriter(filepath));
 
@@ -63,7 +66,7 @@ public class PdfService {
     public String pdfCallLetter(Long id) throws FileNotFoundException{
 
         PersonalDetails det = detailsRepo.getById(id);
-        String filepath = "src/main/resources/pdfFiles/" +det.getId() + " " + det.getName() + " - Interview Call Letter.pdf";
+        String filepath =  baseDir + "src/main/resources/pdfFiles/" +det.getId() + " " + det.getName() + " - Interview Call Letter.pdf";
 
         PdfWriter writer = new PdfWriter(filepath);
 
@@ -87,7 +90,7 @@ public class PdfService {
     public String offerLetterPdf(Long id) throws FileNotFoundException{
 
         PersonalDetails details = detailsRepo.getById(id);
-        String filepath = "src/main/resources/pdfFiles/" +details.getId() + " " + details.getName() + " - Offer Letter.pdf";
+        String filepath =  baseDir + "src/main/resources/pdfFiles/" +details.getId() + " " + details.getName() + " - Offer Letter.pdf";
 
         PdfWriter writer = new PdfWriter(filepath);
 
@@ -111,7 +114,7 @@ public class PdfService {
     }
 
     public Path uploadToDirectory(byte[] fileArray, String email) throws IOException{
-        Path path = Paths.get(("src/main/resources/resumefiles/") + email);
+        Path path = Paths.get((baseDir + "src/main/resources/resumefiles/") + email);
         Files.write(path,fileArray);
         return path;
     }
