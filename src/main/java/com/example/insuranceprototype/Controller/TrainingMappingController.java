@@ -104,4 +104,9 @@ public class TrainingMappingController {
         }
         return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
+
+    @GetMapping("/search/{key}")
+    public ResponseEntity<?> search(@PathVariable String key){
+        return ResponseEntity.ok(agentTrainingService.globalSearch(key));
+    }
 }

@@ -43,6 +43,10 @@ public class TrainingMappingService {
     }
 
 
+    public List<TrainingMapping> globalSearch(String key){
+        return agentTrainingRepo.globalSearch(key);
+    }
+
     public TrainingMappingDTO getTraineeAgent(Long id){
          TrainingMapping agentTrainingDetails =  agentTrainingRepo.getById(id);
          return trainingDTOService.mappingToDTO(agentTrainingDetails);
