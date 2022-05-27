@@ -78,6 +78,11 @@ public class EmployeeController {
         return empService.upcomingCandidates(id);
     }
 
+    @GetMapping("/search/{key}")
+    public ResponseEntity<?> search(@PathVariable String key){
+        return ResponseEntity.ok(empService.globalSearch(key));
+    }
+
     @GetMapping("/passed/{id}")
     public List<PersonalDetails> passedAssignedCandidates(@PathVariable Long id){
         return empService.getPassedAssignedCandidates(id);

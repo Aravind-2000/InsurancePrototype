@@ -39,6 +39,10 @@ public class EmployeeService {
         return  errorService.getErrorById("ER001");
     }
 
+    public List<Employee> globalSearch(String key){
+        return empRepo.globalSearch(key);
+    }
+
     public String updateEmpDetails(Long id , Employee employee){
         Employee emp = empRepo.getById(id);
 
