@@ -10,6 +10,7 @@ import com.example.insuranceprototype.Service.CompanyService;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -81,5 +82,10 @@ public class CompanyController {
 			return ResponseEntity.ok(companyService.deleteCompany(id));
 		}
 		return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
+	}
+
+	@GetMapping("/search/{key}")
+	public ResponseEntity<?> search(@PathVariable String key){
+		return ResponseEntity.ok(companyService.globalSearch(key));
 	}
 }

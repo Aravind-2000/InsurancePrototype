@@ -1,6 +1,8 @@
 package com.example.insuranceprototype.Service;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentMap;
+
 import com.example.insuranceprototype.Entity.Company;
 import com.example.insuranceprototype.Repository.CompanyRepository;
 import com.example.insuranceprototype.error.ErrorService;
@@ -29,6 +31,10 @@ public class CompanyService {
 
 	public Company getActiveCompany(Long id){
 		return companyRepository.getCompany(id);
+	}
+
+	public List<Company> globalSearch(String key){
+		return companyRepository.globalSearch(key);
 	}
 
 	

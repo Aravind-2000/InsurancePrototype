@@ -29,11 +29,11 @@ public class Company {
 	@JsonFormat(pattern = "MM-dd-yyyy")
 	private LocalDate companyLicenseIssueDate;
 
-	private Long companyCurrency;
+	private String companyCurrency;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "companyCurrency", updatable = false, insertable = false)
-	private CurrencyCode currencyCode;
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "companyCurrency", updatable = false, insertable = false)
+//	private CurrencyCode currencyCode;
 
 	private String companyStatus;
 
