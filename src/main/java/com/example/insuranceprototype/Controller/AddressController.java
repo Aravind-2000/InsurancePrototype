@@ -90,4 +90,8 @@ public class AddressController {
         return ResponseEntity.ok(errorService.getErrorById("ER007"));
     }
 
+    @GetMapping("/search/{key}")
+    public ResponseEntity<?> search(@PathVariable String key){
+        return ResponseEntity.ok(addressService.globalSearch(key));
+    }
 }

@@ -33,6 +33,10 @@ public class ClientAddressService {
         return errorService.getErrorById("ER001");
     }
 
+    public List<ClientAddressTable> globalSearch(String key){
+        return addressRepo.globalSearch(key);
+    }
+
     public String update(Long id, ClientAddressTable clientAddress){
         ClientAddressTable ca = addressRepo.getById(id);
 

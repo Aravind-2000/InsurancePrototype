@@ -13,4 +13,11 @@ public interface ClientAddressRepository extends JpaRepository<ClientAddressTabl
 
     @Query(value = "select * from client_address_table where id = :addressid and valid_flag = 1", nativeQuery = true)
     ClientAddressTable getValidAddress(Long addressid);
+
+    @Query(value = "select * from client_address_table where to_address like %:key% and valid_flag = 1 " +
+            "or city like %:key% and valid_flag = 1 " +
+            "or state like %:key% and valid_flag = 1 " +
+            "or country like %:key% and valid_flag = 1 or address_type like %:key% and valid_flag = 1 ", nativeQuery = true)
+    List<ClientAddressTable> globalSearch(String key);
+
 }
