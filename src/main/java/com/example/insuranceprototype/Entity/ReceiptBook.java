@@ -27,26 +27,26 @@ public class ReceiptBook {
     @JoinColumn(name = "agentId", insertable = false, updatable = false)
     private AgentAppointmentDetails agent;
 
-    private String transactionCode;
+//    private String transactionCode;
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long receiptNo;
+    private String receiptNo;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate receiptDate;
 
-    private Long originalReceiptCurrency;
+    private Long originalReceiptCurrencyId;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "originalReceiptCurrency", insertable = false, updatable = false)
+    @JoinColumn(name = "originalReceiptCurrencyId", insertable = false, updatable = false)
     private CurrencyCode receiptCurrency;
 
     private String receiptMethod;
 
     private Double totalReceiptAmount;
 
-    @OneToMany(mappedBy = "receiptNumber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ReceiptReasons> receiptReasons;
+    @OneToMany(mappedBy = "receiptId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TransactionJournal> receiptReasons;
 
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -57,5 +57,6 @@ public class ReceiptBook {
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int validFlag;
 }
