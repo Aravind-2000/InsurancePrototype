@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,26 +15,30 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class ReceiptReasons {
+public class SubAccountTable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double amount;
+    private String subAccountCode;
 
-    private String receiptReason;
+    private String subAccountShortDesc;
 
-    private Long receiptNumber;
+    private String subAccountLongDesc;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String accountSign;
+
     @CreationTimestamp
-    private LocalDateTime createdDate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private LocalDateTime creationDate;
+
+    @UpdateTimestamp
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private LocalDateTime updatedDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @UpdateTimestamp
-    private LocalDateTime modifiedDate;
-
     private int validFlag;
 
 }
