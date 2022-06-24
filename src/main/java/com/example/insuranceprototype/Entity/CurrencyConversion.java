@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,17 +20,29 @@ public class CurrencyConversion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountCurrencyCode;
+    private String slUniqueNumber;
 
-    private String originalCurrencyCode;
+    private Long originalCurrencyCode;
 
-    private Double accountCurrencyUnit;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "originalCurrencyCode", insertable = false,updatable = false)
+    private CurrencyCode originalCurrency;
 
     private Double originalCurrencyUnit;
 
+    private Long accountCurrencyCode;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "accountCurrencyCode", insertable = false,updatable = false)
+    private CurrencyCode accountCurrency;
+
+    private Double exchangeRate;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
-    private LocalDateTime conversionDateTime;
+    private LocalDate startDate;
+
+    @JsonFormat(pattern = "MM-dd-yyyy")
+    private LocalDate endDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @CreationTimestamp
@@ -39,6 +52,7 @@ public class CurrencyConversion {
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int validFlag;
 
 
