@@ -28,8 +28,8 @@ public class TransactionCode {
     private String transactionDesc;
 
 
-    @JsonFormat(pattern = "MM-dd-yyyy")
-    private LocalDateTime transactionDateTime;
+    @JsonFormat(pattern = "MM-dd-yyyy HH:mm")
+    private LocalDateTime transactionDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @CreationTimestamp
@@ -39,6 +39,7 @@ public class TransactionCode {
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int validFlag;
 
 
