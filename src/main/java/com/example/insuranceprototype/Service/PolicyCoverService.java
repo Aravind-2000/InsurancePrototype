@@ -35,6 +35,25 @@ public class PolicyCoverService {
         return errorService.getErrorById("ER001");
     }
 
+
+    public String clonePolicyCover(PolicyCover policyCover){
+        PolicyCover policyCover1 = new PolicyCover();
+        policyCover1.setPolicyNumber(policyCover.getPolicyNumber());
+        policyCover1.setCompanyId(policyCover.getCompanyId());
+        policyCover1.setPolicyHeaderId(policyCover.getPolicyHeaderId());
+        policyCover1.setLife(policyCover.getLife() + 1);
+        policyCover1.setCoverage(policyCover.getCoverage());
+        policyCover1.setRider(policyCover.getRider() + 1);
+        policyCover1.setCoverageName(policyCover.getCoverageName());
+        policyCover1.setInstantPremium(policyCover.getInstantPremium());
+        policyCover1.setSumAssured(policyCover.getSumAssured());
+        policyCover1.setRiskEndDate(policyCover.getRiskEndDate());
+        policyCover1.setPremiumEndDate(policyCover.getPremiumEndDate());
+        policyCover1.setCoverageStatusId(policyCover.getCoverageStatusId());
+        policyCover1.setPolicyStatusId(policyCover.getPolicyStatusId());
+        return addPolicyCover(policyCover1);
+    }
+
     public String updatePolicyCover(Long id, PolicyCover newOne){
 
         PolicyCover oldOne = repository.getById(id);
@@ -74,12 +93,12 @@ public class PolicyCoverService {
             oldOne.setPremiumEndDate(newOne.getPremiumEndDate());
         }
 
-        if(newOne.getCStatus() != null){
-            oldOne.setCStatus(newOne.getCStatus());
+        if(newOne.getCoverageStatusId() != null){
+            oldOne.setCoverageStatusId(newOne.getCoverageStatusId());
         }
 
-        if(newOne.getPStatus() != null){
-            oldOne.setPStatus(newOne.getPStatus());
+        if(newOne.getPolicyStatusId() != null){
+            oldOne.setPolicyStatusId(newOne.getPolicyStatusId());
         }
 
         if(newOne.getCompanyId() != null){
@@ -106,5 +125,7 @@ public class PolicyCoverService {
     public List<PolicyCover> search(String key){
         return repository.globalSearch(key);
     }
+
+    public List<PolicyCover> getByHeader(Long id){return repository.getByHeaderId(id);}
 
 }

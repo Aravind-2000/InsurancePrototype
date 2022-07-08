@@ -56,6 +56,15 @@ public class PolicyCoverController {
         return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
+    @PostMapping("/clone/{userid}")
+    public ResponseEntity<?> clone(@PathVariable Long userid, @RequestBody PolicyCover policyCover1) {
+        String method = "clone-policycover";
+        if (!permissionRepo.isMethodPresent(userid, programId, method).isEmpty()) {
+            return ResponseEntity.ok(policyCoverService.clonePolicyCover(policyCover1));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
+    }
+
 
     @PatchMapping("/{id}/{userid}")
     public ResponseEntity<?> update(@PathVariable Long userid, @PathVariable Long id,@RequestBody PolicyCover policyCover ) {
@@ -88,6 +97,11 @@ public class PolicyCoverController {
             return ResponseEntity.ok(policyCoverService.hardDeletePolicyCover(id));
         }
         return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
+    }
+
+    @GetMapping("/header/{id}")
+    public ResponseEntity<?> header(@PathVariable Long id){
+        return ResponseEntity.ok(policyCoverService.getByHeader(id));
     }
 
 }

@@ -22,12 +22,20 @@ public class PolicyCover {
     private Long id;
 
 
+    private Long policyHeaderId;
+
     private Long policyNumber;
 
     private Long life;
     private Long coverage;
     private Long rider;
-    private String coverageName;
+    private Long coverageNameId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "coverageNameId", insertable = false, updatable = false)
+    private ProductCoverageNames coverageName;
+
+
     private String instantPremium;
     private String sumAssured;
 
@@ -38,8 +46,18 @@ public class PolicyCover {
     private LocalDate premiumEndDate;
 
 
-    private String cStatus;
-    private String pStatus;
+    private Long CoverageStatusId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CoverageStatusId", insertable = false, updatable = false)
+    private Cpstatus CoverageStatus;
+
+
+    private Long PolicyStatusId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "PolicyStatusId", insertable = false, updatable = false)
+    private Cpstatus PolicyStatus;
 
     private Long companyId;
 
