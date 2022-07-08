@@ -13,7 +13,7 @@ public interface PolicyHeaderRepository extends JpaRepository<PolicyHeader, Long
     List<PolicyHeader> getAllValid();
 
 
-    @Query(value = "select * from policy_header where policy_number like %:key% and is_active = 1 or company_id like %:key% and is_active = 1 or agent_id like %:key% and is_active = 1 or" +
+    @Query(value = "select * from policy_header where policy_number like %:key% and is_active = 1 or company_id like %:key% and is_active = 1 or agent_id like %:key% and is_active = 1 or " +
             "c_status like %:key% and is_active = 1 or cp_status like %:key% and is_active = 1 or premium like %:key% and is_active = 1 ", nativeQuery = true)
     List<PolicyHeader> globalSearch(String key);
 

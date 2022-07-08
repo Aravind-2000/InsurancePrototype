@@ -39,8 +39,19 @@ public class PolicyHeader {
     private String policyNumber;
 
     private String premium;
-    private String cStatus;
-    private String  cpStatus;
+
+
+    private Long CoverageStatusId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CoverageStatusId", insertable = false, updatable = false)
+    private Cpstatus CoverageStatus;
+
+    private Long CoveragePolicyStatusId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "CoveragePolicyStatusId", insertable = false, updatable = false)
+    private Cpstatus CoveragePolicyStatus;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate startDate;
@@ -57,10 +68,14 @@ public class PolicyHeader {
     @JoinColumn(name = "currency", insertable = false, updatable = false)
     private CurrencyCode policyCurrency;
 
-    private String product;
+    private Long productId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "productId", insertable = false, updatable = false)
+    private ProductCoverageNames product;
 
 
-    @OneToMany(mappedBy = "policyNumber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "policyHeaderId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<PolicyCover> policyCovers = new ArrayList<>();
 
     private int isActive;

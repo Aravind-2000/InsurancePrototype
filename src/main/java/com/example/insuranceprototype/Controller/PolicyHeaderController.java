@@ -57,6 +57,15 @@ public class PolicyHeaderController {
         return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
     }
 
+    @PostMapping("/clone/{userid}")
+    public ResponseEntity<?> clone(@PathVariable Long userid, @RequestBody PolicyHeader policyHeader1){
+        String method = "clone-policyheader";
+        if (!permissionRepo.isMethodPresent(userid, programId, method).isEmpty()) {
+            return ResponseEntity.ok(policyHeaderService.clonePolicyHeader(policyHeader1));
+        }
+        return ResponseEntity.ok().body(errorService.getErrorById("ER007"));
+    }
+
 
     @PatchMapping("/{id}/{userid}")
     public ResponseEntity<?> update(@PathVariable Long userid,@PathVariable Long id, @RequestBody PolicyHeader policyHeader) {

@@ -33,6 +33,22 @@ public class PolicyHeaderService {
         return errorService.getErrorById("ER001");
     }
 
+    public String clonePolicyHeader(PolicyHeader policyHeader){
+        PolicyHeader policyHeader1 = new PolicyHeader();
+        policyHeader1.setPolicyNumber(policyHeader.getPolicyNumber());
+        policyHeader1.setCompanyId(policyHeader.getCompanyId());
+        policyHeader1.setAgentId(policyHeader.getAgentId());
+        policyHeader1.setPremium(policyHeader.getPremium());
+        policyHeader1.setCoveragePolicyStatusId(policyHeader.getCoveragePolicyStatusId());
+        policyHeader1.setCoverageStatusId(policyHeader.getCoverageStatusId());
+        policyHeader1.setStartDate(policyHeader.getStartDate());
+        policyHeader1.setBillDate(policyHeader.getBillDate());
+        policyHeader1.setPaidDate(policyHeader.getPaidDate());
+        policyHeader1.setCurrency(policyHeader.getCurrency());
+        policyHeader1.setProductId(policyHeader.getProductId());
+        return addPolicyHeader(policyHeader1);
+    }
+
     public String updatePolicyHeader(Long id, PolicyHeader newOne){
 
         PolicyHeader oldOne = repository.getById(id);
@@ -53,12 +69,12 @@ public class PolicyHeaderService {
             oldOne.setPremium(newOne.getPremium());
         }
 
-        if(newOne.getCStatus() != null){
-            oldOne.setCStatus(newOne.getCStatus());
+        if(newOne.getCoverageStatusId() != null){
+            oldOne.setCoverageStatusId(newOne.getCoverageStatusId());
         }
 
-        if(newOne.getCpStatus() != null){
-            oldOne.setCpStatus(newOne.getCpStatus());
+        if(newOne.getCoveragePolicyStatusId() != null){
+            oldOne.setCoveragePolicyStatusId(newOne.getCoveragePolicyStatusId());
         }
 
         if(newOne.getStartDate() != null){
