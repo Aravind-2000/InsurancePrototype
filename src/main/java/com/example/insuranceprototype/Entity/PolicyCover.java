@@ -33,7 +33,7 @@ public class PolicyCover {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "coverageNameId", insertable = false, updatable = false)
-    private ProductCoverageNames coverageName;
+    private ProductCoverageNames coverageName;  
 
 
     private String instantPremium;

@@ -31,7 +31,7 @@ public class TrainingMappingController {
     @GetMapping("/getall/{userid}")
     public ResponseEntity<?> getAll(@PathVariable Long userid){
 
-        String method = "get-all-trainee-agents";
+        String method = "get-all-trainee-agent";
         if(!permissionRepo.isMethodPresent(userid, programId, method).isEmpty()){
             return ResponseEntity.ok(agentTrainingService.getAllTraineeAgents());
         }

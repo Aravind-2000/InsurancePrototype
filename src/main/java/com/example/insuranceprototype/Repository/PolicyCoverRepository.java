@@ -12,7 +12,7 @@ public interface PolicyCoverRepository extends JpaRepository<PolicyCover, Long> 
     @Query(value = "select * from policy_cover where is_active = 1", nativeQuery = true)
     List<PolicyCover> getAllValid();
 
-    @Query(value = "select * from policy_cover where policy_header_id = :headerId and valid_flag = 1", nativeQuery = true)
+    @Query(value = "select * from policy_cover where policy_header_id = :headerId and is_active = 1", nativeQuery = true)
     List<PolicyCover> getByHeaderId(Long headerId);
 
     @Query(value = "select * from policy_cover where policy_number like %:key% and is_active = 1 or coverage like %:key% and is_active = 1 or life like %:key% and is_active = 1 or " +
