@@ -3,7 +3,6 @@ package com.example.insuranceprototype.Service;
 
 import com.example.insuranceprototype.Entity.AccountingRule;
 import com.example.insuranceprototype.Entity.SubAccountTable;
-import com.example.insuranceprototype.Repository.AccountCodeRepository;
 import com.example.insuranceprototype.Repository.AccountingRuleRepository;
 import com.example.insuranceprototype.Repository.SubAccountCodeRepository;
 import com.example.insuranceprototype.error.ErrorService;

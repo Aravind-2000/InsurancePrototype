@@ -4,7 +4,6 @@ package com.example.insuranceprototype.Service;
 import com.example.insuranceprototype.Entity.AgentAppointmentDetails;
 import com.example.insuranceprototype.Entity.Promotion_Demotion_Details;
 import com.example.insuranceprototype.Repository.AgentAppointmentDetailsRepository;
-import com.example.insuranceprototype.Repository.BackupAgentRepository;
 import com.example.insuranceprototype.Repository.PromotionDemotionRepository;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class PromotionDemotionService {
     @Autowired
     private AgentAppointmentDetailsRepository agentRepo;
 
-    @Autowired
-    private BackupAgentRepository backupAgentRepo;
 
 
     @Autowired

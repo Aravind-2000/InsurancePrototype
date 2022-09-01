@@ -1,17 +1,14 @@
 package com.example.insuranceprototype.Controller;
 
 
-import com.example.insuranceprototype.Auth.repository.UserRepository;
 import com.example.insuranceprototype.Entity.ClientAddressTable;
 import com.example.insuranceprototype.Repository.PermissionRepository;
 import com.example.insuranceprototype.Service.ClientAddressService;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RequestMapping("/address")
 @RestController
@@ -20,9 +17,6 @@ public class AddressController {
 
     @Autowired
     private ClientAddressService addressService;
-
-    @Autowired
-    private UserRepository userRepo;
 
     @Autowired
     private PermissionRepository permissionRepo;

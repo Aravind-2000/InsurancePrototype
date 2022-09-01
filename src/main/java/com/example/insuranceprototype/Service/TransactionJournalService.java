@@ -1,6 +1,5 @@
 package com.example.insuranceprototype.Service;
 
-import com.example.insuranceprototype.Entity.AccountingRule;
 import com.example.insuranceprototype.Entity.ReceiptBook;
 import com.example.insuranceprototype.Entity.TransactionCode;
 import com.example.insuranceprototype.Entity.TransactionJournal;
@@ -8,10 +7,8 @@ import com.example.insuranceprototype.Repository.*;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
+
 
 @Service
 public class TransactionJournalService {

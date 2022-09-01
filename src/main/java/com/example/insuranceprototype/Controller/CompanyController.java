@@ -1,16 +1,11 @@
 package com.example.insuranceprototype.Controller;
 
-import java.util.List;
-
-import com.example.insuranceprototype.Auth.repository.UserRepository;
 import com.example.insuranceprototype.Entity.Company;
 import com.example.insuranceprototype.Repository.PermissionRepository;
-import com.example.insuranceprototype.Service.ClientService;
 import com.example.insuranceprototype.Service.CompanyService;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 

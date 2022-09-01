@@ -1,7 +1,6 @@
 package com.example.insuranceprototype.Entity;
 
 
-import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

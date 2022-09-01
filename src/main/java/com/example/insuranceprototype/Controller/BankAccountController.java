@@ -1,7 +1,5 @@
 package com.example.insuranceprototype.Controller;
 
-
-import com.example.insuranceprototype.Auth.repository.UserRepository;
 import com.example.insuranceprototype.Entity.BankAccount;
 import com.example.insuranceprototype.Repository.PermissionRepository;
 import com.example.insuranceprototype.Service.BankAccountService;
@@ -19,9 +17,6 @@ public class BankAccountController {
 
     @Autowired
     private BankAccountService accService;
-
-    @Autowired
-    private UserRepository userRepo;
 
     @Autowired
     private PermissionRepository permissionRepo;

@@ -1,6 +1,6 @@
 package com.example.insuranceprototype.Auth.controllers;
 
-import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 import com.example.insuranceprototype.Auth.exception.TokenRefreshException;
 import com.example.insuranceprototype.Auth.models.RefreshToken;
@@ -18,10 +18,6 @@ import com.example.insuranceprototype.Auth.security.jwt.JwtUtils;
 import com.example.insuranceprototype.Auth.security.services.RefreshTokenService;
 import com.example.insuranceprototype.Auth.security.services.UserDetailsImpl;
 import com.example.insuranceprototype.Auth.security.services.UserService;
-import com.example.insuranceprototype.Entity.Role;
-import com.example.insuranceprototype.Repository.EmployeeRepository;
-import com.example.insuranceprototype.Repository.PermissionRepository;
-import com.example.insuranceprototype.Repository.RoleRepository;
 import com.example.insuranceprototype.error.ErrorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,16 +49,11 @@ public class AuthController {
   JwtUtils jwtUtils;
 
   @Autowired
-  private RoleRepository roleRepo;
-
-  @Autowired
   private ErrorService errorService;
 
   @Autowired
   RefreshTokenService refreshTokenService;
 
-  @Autowired
-  private PermissionRepository permissionRepository;
 
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

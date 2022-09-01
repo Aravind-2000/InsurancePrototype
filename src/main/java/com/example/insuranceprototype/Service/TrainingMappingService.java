@@ -2,7 +2,6 @@ package com.example.insuranceprototype.Service;
 
 import com.example.insuranceprototype.Entity.TrainingMappingDTO;
 import com.example.insuranceprototype.Entity.TrainingMapping;
-import com.example.insuranceprototype.Entity.TrainingModule;
 import com.example.insuranceprototype.Entity.TrainingSession;
 import com.example.insuranceprototype.Repository.TrainingMappingRepository;
 import com.example.insuranceprototype.Repository.TrainingSessionRepository;

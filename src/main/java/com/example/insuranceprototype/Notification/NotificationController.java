@@ -1,14 +1,12 @@
 package com.example.insuranceprototype.Notification;
 
 
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +14,6 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping("/notification")
 public class NotificationController {
-
-    @Autowired
-    private NotificationRepository notificationRepository;
 
     @Autowired
     private NotificationService notificationService;
