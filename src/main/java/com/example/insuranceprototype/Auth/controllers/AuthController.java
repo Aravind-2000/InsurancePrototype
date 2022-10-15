@@ -155,6 +155,21 @@ public class AuthController {
     return ResponseEntity.ok(errorService.getErrorById("ER003"));
   }
 
+  @PatchMapping("/user/updatePassword/{email}")
+  public ResponseEntity<?> updatePassword(@PathVariable String email, @RequestBody String newPassword){
+    User user = userRepository.findUserByEmail(email);
+    
+
+    if(newPassword != null ){
+      user.setPassword(encoder.encode(newPassword));
+    }
+
+    System.out.println(user.getEmail());
+    System.out.println(user.getPassword());
+    userRepository.save(user);
+    return ResponseEntity.ok(errorService.getErrorById("ER003"));
+  }
+
 
 //  @PostMapping("TokenCheck")
 //  public ResponseEntity<?> TokenCheck(@RequestBody String jwt){
