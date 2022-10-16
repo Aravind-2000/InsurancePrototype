@@ -8,6 +8,7 @@ import com.example.insuranceprototype.Auth.models.User;
 import com.example.insuranceprototype.Auth.models.UserDTO;
 import com.example.insuranceprototype.Auth.payload.request.LogOutRequest;
 import com.example.insuranceprototype.Auth.payload.request.LoginRequest;
+import com.example.insuranceprototype.Auth.payload.request.PasswordChangeRequest;
 import com.example.insuranceprototype.Auth.payload.request.SignupRequest;
 import com.example.insuranceprototype.Auth.payload.request.TokenRefreshRequest;
 import com.example.insuranceprototype.Auth.payload.response.JwtResponse;
@@ -70,7 +71,23 @@ public class AuthController {
     RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
     return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-        userDetails.getUsername(), userDetails.getEmail(), userDetails.getAgent(), userDetails.getRole(), userDetails.getSpecialAccess()));
+        userDetails.getUsername(), userDetails.getEmail(), userDetails.getAgent(), userDetails.getRole(),
+        userDetails.getSpecialAccess()));
+  }
+  
+  @PostMapping("/user/updatePassword")
+  public ResponseEntity<?> updatePassword(@Valid @RequestBody PasswordChangeRequest passwordChangeRequest) {
+    
+    if (!userRepository.existsByEmail(passwordChangeRequest.getEmail().trim())) {
+      return ResponseEntity.badRequest().body(new MessageResponse("Error: E-mail doesn't exists"));
+    }
+
+    User user = userRepository.findUserByEmail(passwordChangeRequest.getEmail().trim());
+
+    user.setPassword(encoder.encode(passwordChangeRequest.getPassword()));
+    userRepository.save(user);
+
+    return ResponseEntity.ok(new MessageResponse("Password Changed Successfully"));
   }
 
   @PostMapping("/signup")
@@ -85,7 +102,6 @@ public class AuthController {
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),signUpRequest.getAgentId(), signUpRequest.getRoleId());
-//    assigningPredefinedPermissions(signUpRequest.getRoleId(), user.getId());
     userRepository.save(user);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
@@ -154,22 +170,6 @@ public class AuthController {
     userRepository.save(user);
     return ResponseEntity.ok(errorService.getErrorById("ER003"));
   }
-
-  @PatchMapping("/user/updatePassword/{email}")
-  public ResponseEntity<?> updatePassword(@PathVariable String email, @RequestBody String newPassword){
-    User user = userRepository.findUserByEmail(email);
-    
-
-    if(newPassword != null ){
-      user.setPassword(encoder.encode(newPassword));
-    }
-
-    System.out.println(user.getEmail());
-    System.out.println(user.getPassword());
-    userRepository.save(user);
-    return ResponseEntity.ok(errorService.getErrorById("ER003"));
-  }
-
 
 //  @PostMapping("TokenCheck")
 //  public ResponseEntity<?> TokenCheck(@RequestBody String jwt){
