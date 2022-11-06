@@ -14,5 +14,6 @@ public class UserDTO {
     private Long agentId;
     private Long roleId;
     private Role role;
+    private String profilePicture;
 
 }

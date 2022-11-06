@@ -25,4 +25,6 @@ public class SignupRequest {
     private Long agentId;
 
     private Long roleId;
+
+    private String profilePicture;
 }

@@ -31,7 +31,9 @@ public class UserDetailsImpl implements UserDetails {
 
 	private List<Permissions> specialAccess;
 
-	public UserDetailsImpl(Long id, String username, String email, String password, AgentAppointmentDetails agent, Role role, List<Permissions> specialAccess) {
+	private String profilePicture;
+
+	public UserDetailsImpl(Long id, String username, String email, String password, AgentAppointmentDetails agent, Role role, List<Permissions> specialAccess, String profilePicture) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -39,6 +41,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.agent = agent;
 		this.role = role;
 		this.specialAccess = specialAccess;
+		this.profilePicture = profilePicture;
 	}
 
 	public static UserDetailsImpl build(User user) {
@@ -50,7 +53,8 @@ public class UserDetailsImpl implements UserDetails {
 				user.getPassword(),
 				user.getAgent(),
 				user.getRole(),
-				user.getSpecialAccess()
+				user.getSpecialAccess(),
+				user.getProfilePicture()
 				);
 	}
 
@@ -96,6 +100,15 @@ public class UserDetailsImpl implements UserDetails {
 
 	public void setSpecialAccess(List<Permissions> specialAccess) {
 		this.specialAccess = specialAccess;
+	}
+
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	@Override

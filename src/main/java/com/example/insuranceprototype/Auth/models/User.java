@@ -55,16 +55,20 @@ public class User {
 	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Permissions> specialAccess;
 
+	@Lob
+	private String profilePicture;
+
 	public User() {
 
 	}
 
-	public User(String username, String email, String password, Long agentId, Long roleId) {
+	public User(String username, String email, String password, Long agentId, Long roleId, String profilePicture) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.agentId = agentId;
 		this.roleId = roleId;
+		this.profilePicture = profilePicture;
 	}
 
 	public Long getId() {
@@ -139,4 +143,14 @@ public class User {
 	public void setSpecialAccess(List<Permissions> specialAccess) {
 		this.specialAccess = specialAccess;
 	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	
 }

@@ -16,6 +16,7 @@ public class UserService {
         dto.setRoleId(user.getRoleId());
         dto.setAgentId(user.getAgentId());
         dto.setRole(user.getRole());
+        dto.setProfilePicture(user.getProfilePicture());
         return dto;
     }
 
