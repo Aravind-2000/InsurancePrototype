@@ -72,7 +72,7 @@ public class AuthController {
 
     return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
         userDetails.getUsername(), userDetails.getEmail(), userDetails.getAgent(), userDetails.getRole(),
-        userDetails.getSpecialAccess()));
+        userDetails.getSpecialAccess(),userDetails.getProfilePicture() ));
   }
   
   @PostMapping("/user/updatePassword")
@@ -101,7 +101,7 @@ public class AuthController {
     }
 
     // Create new user's account
-    User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),signUpRequest.getAgentId(), signUpRequest.getRoleId());
+    User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()),signUpRequest.getAgentId(), signUpRequest.getRoleId(), signUpRequest.getProfilePicture());
     userRepository.save(user);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
@@ -163,8 +163,12 @@ public class AuthController {
       user.setRoleId(newDetails.getRoleId());
     }
 
-    if(newDetails.getAgentId() != null){
+    if (newDetails.getAgentId() != null) {
       user.setAgentId(newDetails.getAgentId());
+    }
+    
+    if (newDetails.getProfilePicture() != null) {
+      user.setProfilePicture(newDetails.getProfilePicture());
     }
 
     userRepository.save(user);

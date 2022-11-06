@@ -16,6 +16,7 @@ public class JwtResponse {
 	private AgentAppointmentDetails agent;
 	private Role role;
 	private List<Permissions> specialAccess;
+	private String profilePicture;
 
 	public AgentAppointmentDetails getAgent() {
 		return agent;
@@ -25,7 +26,9 @@ public class JwtResponse {
 		this.agent = agent;
 	}
 
-	public JwtResponse(String accessToken, String refreshToken, Long id, String username, String email, AgentAppointmentDetails agent, Role role, List<Permissions> specialAccess) {
+	public JwtResponse(String accessToken, String refreshToken, Long id, String username, String email,
+			AgentAppointmentDetails agent, Role role, List<Permissions> specialAccess, String profilePicture) {
+				
 		this.token = accessToken;
 		this.refreshToken = refreshToken;
 		this.id = id;
@@ -34,7 +37,17 @@ public class JwtResponse {
 		this.agent = agent;
 		this.role = role;
 		this.specialAccess = specialAccess;
+		this.profilePicture = profilePicture;
+	}
+	
+	
 
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	public String getAccessToken() {
